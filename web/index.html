@@ -208,8 +208,8 @@ textarea{resize:vertical;min-height:72px}
 /* ══════════════════════════
    LOGIN
 ══════════════════════════ */
-#screen-login{align-items:center;justify-content:center;padding:2rem}
-#screen-login.active{display:flex}
+#screen-login{background:var(--bg)}
+#screen-login.active{display:flex;flex-direction:column}
 .login-wrap{width:100%;max-width:360px}
 .login-logo-wrap{margin-bottom:2rem}
 .login-logo{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:400;color:var(--ink);display:flex;align-items:baseline;gap:6px;cursor:pointer;width:fit-content}
@@ -480,7 +480,7 @@ textarea{resize:vertical;min-height:72px}
       </div>
     </div>
   </nav>
-  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;min-height:calc(100vh - 58px)">
     <div class="login-wrap fade-in">
       <button class="login-back-link" onclick="goLanding()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -806,9 +806,13 @@ async function doAuth(){
     else{res=await fetch(`${API}/auth/register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass})});}
     const d=await res.json();
     if(!res.ok){err.textContent=d.detail||(lang==='ar'?'حدث خطأ':'Error');err.classList.add('show');return;}
-    token=d.access_token;currentUser={id:d.user_id,username:d.username,lang:d.lang,theme:d.theme||'dark'};
+    token=d.access_token;
+    // Keep user's current lang/theme preference, only use server value if not already set
+    const savedLang=localStorage.getItem('masar_lang');
+    const savedTheme=localStorage.getItem('masar_theme');
+    currentUser={id:d.user_id,username:d.username,lang:savedLang||d.lang,theme:savedTheme||d.theme||'dark'};
     localStorage.setItem('masar_token',token);localStorage.setItem('masar_user',JSON.stringify(currentUser));
-    lang=d.lang||lang;theme=d.theme||theme;applyTheme();applyLang();
+    lang=currentUser.lang;theme=currentUser.theme;applyTheme();applyLang();
     await showDash();
   }catch(e){err.textContent=lang==='ar'?'تعذّر الاتصال':'Cannot connect';err.classList.add('show');}
   finally{document.getElementById('auth-btn').disabled=false;}
@@ -1123,8 +1127,14 @@ document.querySelectorAll('.overlay').forEach(m=>m.addEventListener('click',e=>{
 let _tt;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2200);}
 
 // ── INIT ─────────────────────────────────────────────────
-applyTheme();applyLang();
-if(token&&currentUser){lang=currentUser.lang||lang;theme=currentUser.theme||theme;applyTheme();applyLang();showDash();}
+// Apply saved preferences BEFORE first render
+if(currentUser){
+  lang=currentUser.lang||lang;
+  theme=currentUser.theme||theme;
+}
+applyTheme();
+applyLang();
+if(token&&currentUser){showDash();}
 else{goLanding();}
 </script>
 </body>
