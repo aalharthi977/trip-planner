@@ -69,46 +69,38 @@ jobs:
           BACKEND:  ${{ steps.changes.outputs.backend }}
           COMPOSE:  ${{ steps.changes.outputs.compose }}
         run: |
-          ssh ssh.aalharthi.net "bash -s" << ENDSSH
+          ssh ssh.aalharthi.net '
             set -e
             cd ~/docker/trip-planner
-
             echo "==> Pulling latest code..."
             git pull origin main
+          '
 
-            FRONTEND=${FRONTEND}
-            BACKEND=${BACKEND}
-            COMPOSE=${COMPOSE}
-
-            if [ "\$COMPOSE" = "true" ]; then
-              echo "==> docker-compose.yml changed — full rebuild..."
+          ssh ssh.aalharthi.net "
+            set -e
+            cd ~/docker/trip-planner
+            FRONTEND=$FRONTEND
+            BACKEND=$BACKEND
+            COMPOSE=$COMPOSE
+            if [ \"\$COMPOSE\" = \"true\" ]; then
+              echo \"==> Full rebuild...\"
               docker compose down
               docker compose up -d --build
-              echo "✓ Full rebuild complete"
-
-            elif [ "\$BACKEND" = "true" ] && [ "\$FRONTEND" = "true" ]; then
-              echo "==> Both changed — rebuild API + refresh frontend..."
+            elif [ \"\$BACKEND\" = \"true\" ] && [ \"\$FRONTEND\" = \"true\" ]; then
+              echo \"==> Rebuild API + refresh frontend...\"
               docker compose up -d --build trip-planner-api
-              cp web/index.html /usr/share/nginx/html/index.html 2>/dev/null || true
-              echo "✓ API rebuilt, frontend refreshed"
-
-            elif [ "\$BACKEND" = "true" ]; then
-              echo "==> API changed — rebuilding trip-planner-api..."
-              docker compose up -d --build trip-planner-api
-              echo "✓ API container rebuilt"
-
-            elif [ "\$FRONTEND" = "true" ]; then
-              echo "==> Frontend only — copying index.html (no rebuild)..."
               docker cp web/index.html trip-planner-web:/usr/share/nginx/html/index.html
-              echo "✓ Frontend updated instantly"
-
+            elif [ \"\$BACKEND\" = \"true\" ]; then
+              echo \"==> Rebuild API...\"
+              docker compose up -d --build trip-planner-api
+            elif [ \"\$FRONTEND\" = \"true\" ]; then
+              echo \"==> Frontend only...\"
+              docker cp web/index.html trip-planner-web:/usr/share/nginx/html/index.html
             else
-              echo "==> No relevant files changed — skipping deploy"
+              echo \"==> No relevant changes, skipping\"
             fi
-
-            echo "==> Container status:"
             docker ps --format 'table {{.Names}}\t{{.Status}}' | grep trip
-          ENDSSH
+          "
 
       - name: Verify deployment
         run: |
