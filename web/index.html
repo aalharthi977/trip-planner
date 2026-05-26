@@ -3,503 +3,528 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مَسار — Trip Planner</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<title>مَسار · Masar</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,600;1,9..144,200;1,9..144,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-/* ── THEMES ── */
 :root[data-theme="dark"]{
-  --bg:#0F0E0C;--bg2:#171614;--bg3:#1E1C19;--bg4:#252320;
-  --card:#1C1A17;--border:#2E2B27;--border2:#3A3732;
-  --ink:#F0EDE6;--ink2:#B8B4AC;--ink3:#6A6660;
-  --shadow:0 2px 8px rgba(0,0,0,0.3),0 1px 2px rgba(0,0,0,0.2);
-  --shadow-lg:0 8px 32px rgba(0,0,0,0.4);
-  --green:#4CAF82;--green-dk:#2D7A57;--green-dim:rgba(76,175,130,0.13);
-  --gold:#C8953A;--gold-dim:rgba(200,149,58,0.13);
-  --coral:#C96048;--coral-dim:rgba(201,96,72,0.13);
-  --blue:#5B8FD4;--blue-dim:rgba(91,143,212,0.13);
-  --purple:#8B72D4;--purple-dim:rgba(139,114,212,0.13);
-  --red:#D45B5B;--red-dim:rgba(212,91,91,0.13);
-  --hero-grad:linear-gradient(135deg,#0F0E0C 0%,#1a1816 100%);
-  --hero-card:rgba(255,255,255,0.04);
-  --hero-border:rgba(255,255,255,0.08);
+  --bg:#0C0C0B;--bg2:#131312;--bg3:#1A1918;--bg4:#222120;
+  --card:#141413;--border:#252422;--border2:#302E2B;
+  --ink:#F2EEE6;--ink2:#A8A49C;--ink3:#5A5752;
+  --green:#3D9E72;--green-lt:#4DB885;--green-dim:rgba(61,158,114,0.12);
+  --gold:#C4903A;--gold-dim:rgba(196,144,58,0.12);
+  --coral:#C45840;--coral-dim:rgba(196,88,64,0.12);
+  --blue:#4A7EC4;--blue-dim:rgba(74,126,196,0.12);
+  --purple:#8060C4;--purple-dim:rgba(128,96,196,0.12);
+  --red:#C44848;--red-dim:rgba(196,72,72,0.12);
+  --shadow:0 1px 4px rgba(0,0,0,0.4);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.5);
 }
 :root[data-theme="light"]{
-  --bg:#F5F3EE;--bg2:#FFFFFF;--bg3:#F0EDE6;--bg4:#E8E4DC;
-  --card:#FFFFFF;--border:#DDD9D0;--border2:#C8C4BB;
-  --ink:#1C1B18;--ink2:#4A4840;--ink3:#8A8880;
-  --shadow:0 2px 8px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.04);
-  --shadow-lg:0 8px 32px rgba(0,0,0,0.12);
-  --green:#2A7A5E;--green-dk:#1A5A44;--green-dim:rgba(42,122,94,0.1);
-  --gold:#A06020;--gold-dim:rgba(160,96,32,0.1);
-  --coral:#B84430;--coral-dim:rgba(184,68,48,0.1);
-  --blue:#2A5FA8;--blue-dim:rgba(42,95,168,0.1);
-  --purple:#5E4DC4;--purple-dim:rgba(94,77,196,0.1);
-  --red:#B03030;--red-dim:rgba(176,48,48,0.1);
-  --hero-grad:linear-gradient(135deg,#1C1B18 0%,#2A2824 100%);
-  --hero-card:rgba(255,255,255,0.08);
-  --hero-border:rgba(255,255,255,0.12);
+  --bg:#FAFAF8;--bg2:#FFFFFF;--bg3:#F3F1EC;--bg4:#EAE8E2;
+  --card:#FFFFFF;--border:#E4E1DA;--border2:#D0CDC5;
+  --ink:#1A1916;--ink2:#52504A;--ink3:#9A9890;
+  --green:#2A7A58;--green-lt:#3A9A70;--green-dim:rgba(42,122,88,0.1);
+  --gold:#A07030;--gold-dim:rgba(160,112,48,0.1);
+  --coral:#B84838;--coral-dim:rgba(184,72,56,0.1);
+  --blue:#3A6AAE;--blue-dim:rgba(58,106,174,0.1);
+  --purple:#6850AE;--purple-dim:rgba(104,80,174,0.1);
+  --red:#A83838;--red-dim:rgba(168,56,56,0.1);
+  --shadow:0 1px 4px rgba(0,0,0,0.08);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.12);
 }
 
 body{background:var(--bg);color:var(--ink);font-family:'DM Sans','Noto Sans Arabic',sans-serif;font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;transition:background 0.2s,color 0.2s}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 
-/* ── UTILS ── */
 .hidden{display:none!important}
 .screen{display:none;min-height:100vh}
 .screen.active{display:flex;flex-direction:column}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeUp 0.28s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.3s ease both}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 
 /* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:8px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--ink2);transition:all 0.15s;font-family:inherit;white-space:nowrap}
-.btn:hover{background:var(--bg4);color:var(--ink);border-color:var(--border2)}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:8px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--ink2);transition:all 0.15s;font-family:inherit;white-space:nowrap}
+.btn:hover{background:var(--bg4);color:var(--ink)}
 .btn:disabled{opacity:0.45;cursor:not-allowed}
+.btn-primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn-primary:hover{opacity:0.88}
 .btn-green{background:var(--green);color:#fff;border-color:var(--green)}
-.btn-green:hover{filter:brightness(1.1)}
+.btn-green:hover{background:var(--green-lt);border-color:var(--green-lt)}
 .btn-ghost{background:transparent;border-color:transparent;color:var(--ink2)}
-.btn-ghost:hover{background:var(--bg3)}
-.btn-danger{background:var(--red-dim);color:var(--red);border-color:rgba(176,48,48,0.2)}
-.btn svg{width:15px;height:15px;flex-shrink:0;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btn-ghost:hover{background:var(--bg3);color:var(--ink)}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--ink)}
+.btn-outline:hover{background:var(--bg3)}
+.btn svg{width:14px;height:14px;flex-shrink:0;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .btn-sm{padding:5px 11px;font-size:12px}.btn-sm svg{width:13px;height:13px}
+.btn-lg{padding:12px 28px;font-size:15px;border-radius:10px}
 .act{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;padding:0}
-.act svg{width:14px;height:14px;stroke:var(--ink3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.15s}
+.act svg{width:14px;height:14px;stroke:var(--ink3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .act:hover{background:var(--bg4);border-color:var(--border2)}.act:hover svg{stroke:var(--ink)}
 .act.danger:hover{background:var(--red-dim);border-color:var(--red)}.act.danger:hover svg{stroke:var(--red)}
 
 /* ── FORMS ── */
 .field{display:flex;flex-direction:column;gap:5px}
 .field label{font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em}
-input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:9px;font-size:13px;font-family:inherit;background:var(--bg3);color:var(--ink);outline:none;transition:border-color 0.15s}
-input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(76,175,130,0.12)}
+input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg3);color:var(--ink);outline:none;transition:border-color 0.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px var(--green-dim)}
 select option{background:var(--bg3);color:var(--ink)}
 textarea{resize:vertical;min-height:72px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.toggle-wrap{display:flex;align-items:center;gap:12px;padding:8px 0}
+.toggle-wrap label{font-size:13px;color:var(--ink2);cursor:pointer;flex:1;line-height:1.4}
+.toggle{position:relative;width:38px;height:21px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--border2);border-radius:21px;transition:0.2s}
+.toggle-slider:before{content:'';position:absolute;height:15px;width:15px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.2s}
+.toggle input:checked+.toggle-slider{background:var(--green)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(17px)}
 
 /* ── MODAL ── */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 .overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:520px;box-shadow:var(--shadow-lg);max-height:92vh;display:flex;flex-direction:column}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;width:100%;max-width:520px;box-shadow:var(--shadow-lg);max-height:92vh;display:flex;flex-direction:column}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
-.modal-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:300;color:var(--ink)}
+.modal-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;color:var(--ink)}
 .modal-body{padding:20px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
 .modal-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:1.5rem;inset-inline-end:1.5rem;z-index:999;background:var(--bg4);border:1px solid var(--border2);color:var(--ink);padding:10px 18px;border-radius:10px;font-size:13px;box-shadow:var(--shadow-lg);transform:translateY(14px);opacity:0;transition:all 0.25s;pointer-events:none;max-width:300px}
+.toast{position:fixed;bottom:1.5rem;inset-inline-end:1.5rem;z-index:999;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:13px;box-shadow:var(--shadow-lg);transform:translateY(14px);opacity:0;transition:all 0.25s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* ── SHARED NAV ── */
-.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100;flex-shrink:0}
-.nav-logo{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:var(--ink);cursor:pointer;text-decoration:none;flex-shrink:0}
-.nav-logo em{color:var(--green);font-style:italic}
+/* ── NAV ── */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;gap:12px;height:58px;position:sticky;top:0;z-index:100;flex-shrink:0}
+.logo{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--ink);cursor:pointer;text-decoration:none;display:flex;align-items:baseline;gap:6px;flex-shrink:0;letter-spacing:-0.01em}
+.logo-ar{color:var(--green)}
+.logo-dot{color:var(--ink3);font-size:0.9rem;font-family:'DM Sans',sans-serif}
+.logo-en{color:var(--ink2);font-size:0.95rem;font-weight:300}
 .nav-spacer{flex:1}
-.nav-right{display:flex;align-items:center;gap:8px}
-.theme-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3);transition:all 0.15s}
-.theme-btn:hover{background:var(--bg3);color:var(--ink)}
-.theme-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.lang-toggle{display:flex;gap:3px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:3px}
+.nav-right{display:flex;align-items:center;gap:6px}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3);transition:all 0.15s}
+.icon-btn:hover{background:var(--bg3);color:var(--ink);border-color:var(--border2)}
+.icon-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lang-toggle{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:2px;gap:2px}
 .lang-opt{padding:4px 10px;border:none;background:transparent;color:var(--ink3);font-size:12px;font-weight:500;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:inherit}
-.lang-opt.active{background:var(--bg4);color:var(--ink)}
-.user-pill{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px 4px 4px}
-.user-avatar{width:26px;height:26px;border-radius:50%;background:var(--green-dim);border:1px solid rgba(76,175,130,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--green)}
-.user-name{font-size:12px;color:var(--ink2)}
+.lang-opt.active{background:var(--bg2);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.user-pill{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:3px 10px 3px 3px}
+.user-av{width:26px;height:26px;border-radius:50%;background:var(--green-dim);border:1px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--green)}
+.user-nm{font-size:12px;color:var(--ink2)}
 
-/* ══════════════════════════════
-   LANDING SCREEN
-══════════════════════════════ */
+/* ══════════════════════════
+   LANDING — BOLD MINIMAL
+══════════════════════════ */
 #screen-landing.active{display:flex;flex-direction:column}
 
-/* Hero */
-.hero{background:var(--hero-grad);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden;flex-shrink:0}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(76,175,130,0.08) 0%,transparent 70%)}
-.hero-eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1rem}
-.hero-title{font-family:'Fraunces',serif;font-size:clamp(3rem,8vw,5.5rem);font-weight:300;color:#fff;line-height:1.1;margin-bottom:1rem}
-.hero-title em{color:var(--green);font-style:italic}
-.hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.55);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
-.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.hero-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.18s;font-family:inherit;text-decoration:none}
-.hero-btn-primary{background:var(--green);color:#fff;border:1px solid var(--green)}
-.hero-btn-primary:hover{filter:brightness(1.1)}
-.hero-btn-ghost{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.15)}
-.hero-btn-ghost:hover{background:rgba(255,255,255,0.14)}
+.land-hero{flex:0 0 auto;padding:7rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.land-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:1px;height:4rem;background:linear-gradient(to bottom,var(--border),transparent)}
+.land-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:2rem}
+.land-h1{font-family:'Fraunces',serif;font-size:clamp(3.5rem,10vw,7rem);font-weight:200;line-height:1.05;letter-spacing:-0.03em;color:var(--ink);margin-bottom:1.5rem}
+.land-h1 span{font-style:italic;color:var(--green)}
+.land-sub{font-size:1.05rem;color:var(--ink3);max-width:420px;line-height:1.7;margin-bottom:3rem}
+.land-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.land-stat-row{display:flex;gap:4rem;justify-content:center;margin-top:5rem;padding-top:4rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.land-stat{text-align:center}
+.land-stat-n{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:200;color:var(--ink);line-height:1}
+.land-stat-l{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
 
-/* Stats row */
-.hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:3rem;flex-wrap:wrap}
-.hero-stat{text-align:center}
-.hero-stat-num{font-family:'Fraunces',serif;font-size:2rem;font-weight:300;color:#fff;line-height:1}
-.hero-stat-lbl{font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;letter-spacing:0.06em;text-transform:uppercase}
+.land-features{padding:5rem 2rem;max-width:780px;margin:0 auto;width:100%}
+.land-feat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5rem 3rem}
+.land-feat{display:flex;flex-direction:column;gap:8px}
+.land-feat-icon{width:32px;height:32px;border-radius:8px;background:var(--green-dim);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.land-feat-icon svg{width:15px;height:15px;stroke:var(--green);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.land-feat-title{font-size:14px;font-weight:500;color:var(--ink)}
+.land-feat-desc{font-size:12px;color:var(--ink3);line-height:1.6}
 
-/* Features row */
-.features{display:flex;justify-content:center;gap:16px;padding:2.5rem 2rem;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--bg2)}
-.feature-chip{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
-.feature-chip svg{width:16px;height:16px;stroke:var(--green);stroke-width:2;fill:none;flex-shrink:0}
+.land-divider{height:1px;background:var(--border);max-width:780px;margin:0 auto;width:100%}
 
-/* Public trips section */
-.landing-main{flex:1;padding:3rem 2rem 4rem;max-width:1100px;margin:0 auto;width:100%}
-.section-title{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300;color:var(--ink);margin-bottom:0.3rem}
-.section-sub{font-size:13px;color:var(--ink3);margin-bottom:1.5rem}
+.land-trips-section{padding:5rem 2rem 6rem;max-width:900px;margin:0 auto;width:100%}
+.land-section-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.75rem}
+.land-section-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:200;color:var(--ink);margin-bottom:3rem;letter-spacing:-0.02em}
 
-/* Featured trip */
-.featured-trip{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:2rem;cursor:pointer;transition:all 0.18s;display:flex;flex-direction:column}
-.featured-trip:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
-.featured-banner{height:8px;flex-shrink:0}
-.featured-body{padding:1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start}
-.featured-info{flex:1;min-width:200px}
-.featured-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,130,0.2);margin-bottom:10px}
-.featured-title{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:var(--ink);line-height:1.3;margin-bottom:6px}
-.featured-dest{font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:5px;margin-bottom:12px}
-.featured-dest svg{width:13px;height:13px;stroke:var(--ink3);stroke-width:2;fill:none;flex-shrink:0}
-.featured-meta{display:flex;gap:10px;flex-wrap:wrap}
-.meta-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3);background:var(--bg3);border-radius:8px;padding:4px 10px}
-.meta-chip svg{width:11px;height:11px;stroke:var(--ink3);stroke-width:2;fill:none}
-.featured-author{font-size:12px;color:var(--ink3);margin-top:12px}
-.featured-cta{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--green);flex-shrink:0;align-self:center}
-.featured-cta svg{width:16px;height:16px;stroke:var(--green);stroke-width:2;fill:none;transition:transform 0.15s}
-.featured-trip:hover .featured-cta svg{transform:translateX(4px)}
+/* featured card — minimal */
+.feat-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;margin-bottom:1.5rem;display:flex;background:var(--card)}
+.feat-card:hover{border-color:var(--border2);box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+.feat-card-accent{width:4px;flex-shrink:0}
+.feat-card-body{padding:2rem;flex:1;display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.feat-card-info{flex:1;min-width:200px}
+.feat-card-kicker{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.75rem}
+.feat-card-title{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:200;color:var(--ink);line-height:1.2;margin-bottom:0.5rem;letter-spacing:-0.02em}
+.feat-card-dest{font-size:13px;color:var(--ink3);margin-bottom:1rem}
+.feat-card-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);color:var(--ink3);background:var(--bg3)}
+.feat-card-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:1rem;min-width:120px}
+.feat-card-author{font-size:12px;color:var(--ink3)}
+.feat-card-cta{font-size:13px;font-weight:500;color:var(--green);display:flex;align-items:center;gap:6px;transition:gap 0.15s}
+.feat-card:hover .feat-card-cta{gap:10px}
 
-/* Trips grid */
-.trips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.trip-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.18s;display:flex;flex-direction:column}
-.trip-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow)}
-.trip-card-top{height:5px;flex-shrink:0}
-.trip-card-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:5px}
-.trip-card-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:300;color:var(--ink);line-height:1.3}
-.trip-card-dest{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:4px}
-.trip-card-dest svg{width:11px;height:11px;stroke:var(--ink3);stroke-width:2;fill:none;flex-shrink:0}
-.trip-card-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.trip-chip{font-size:10px;color:var(--ink3);background:var(--bg3);border-radius:7px;padding:3px 8px}
-.trip-card-foot{padding:9px 1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.trip-status{font-size:10px;font-weight:500;padding:2px 8px;border-radius:8px}
-.trip-author{font-size:10px;color:var(--ink3)}
-.status-planning{background:var(--gold-dim);color:var(--gold)}
-.status-booked{background:var(--blue-dim);color:var(--blue)}
-.status-ongoing{background:var(--green-dim);color:var(--green)}
-.status-completed{background:var(--bg3);color:var(--ink3)}
-.color-blue .trip-card-top,.color-blue .featured-banner{background:var(--blue)}
-.color-green .trip-card-top,.color-green .featured-banner{background:var(--green)}
-.color-coral .trip-card-top,.color-coral .featured-banner{background:var(--coral)}
-.color-gold .trip-card-top,.color-gold .featured-banner{background:var(--gold)}
-.color-purple .trip-card-top,.color-purple .featured-banner{background:var(--purple)}
+/* trip grid cards */
+.pub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pub-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all 0.18s;background:var(--card);display:flex;flex-direction:column}
+.pub-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.pub-card-accent{height:3px;flex-shrink:0}
+.pub-card-body{padding:1rem;flex:1}
+.pub-card-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:200;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em}
+.pub-card-dest{font-size:12px;color:var(--ink3);margin-bottom:8px}
+.pub-card-foot{padding:8px 1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.pub-card-author{font-size:11px;color:var(--ink3)}
+.pub-card-days{font-size:11px;color:var(--ink3)}
+.status-pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:6px}
+.sp-planning{background:var(--gold-dim);color:var(--gold)}
+.sp-booked{background:var(--blue-dim);color:var(--blue)}
+.sp-ongoing{background:var(--green-dim);color:var(--green)}
+.sp-completed{background:var(--bg3);color:var(--ink3)}
 
-.empty-public{text-align:center;padding:4rem 2rem;color:var(--ink3)}
-.empty-public h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:300;color:var(--ink2);margin-bottom:0.5rem}
+.empty-pub{padding:4rem 0;text-align:center;color:var(--ink3)}
+.empty-pub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:200;color:var(--ink2);margin-bottom:0.5rem}
+.empty-pub p{font-size:13px;margin-bottom:1.5rem}
 
-/* ══════════════════════════════
-   PUBLIC TRIP VIEW SCREEN
-══════════════════════════════ */
+/* color accents */
+.ac-blue{background:var(--blue)}.ac-green{background:var(--green)}.ac-coral{background:var(--coral)}.ac-gold{background:var(--gold)}.ac-purple{background:var(--purple)}
+
+/* ══════════════════════════
+   PUBLIC TRIP VIEW
+══════════════════════════ */
 #screen-public.active{display:flex;flex-direction:column}
-.public-hero{background:var(--hero-grad);padding:3rem 2rem 2.5rem;flex-shrink:0}
-.public-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.5);cursor:pointer;border:none;background:transparent;font-family:inherit;margin-bottom:1.5rem;transition:color 0.15s}
-.public-back:hover{color:rgba(255,255,255,0.8)}
-.public-back svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
-.public-trip-title{font-family:'Fraunces',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:300;color:#fff;line-height:1.2;margin-bottom:8px}
-.public-meta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.public-meta-pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.07);border-radius:20px;padding:4px 12px}
-.public-meta-pill svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
-.public-main{flex:1;max-width:800px;margin:0 auto;padding:2rem 1.5rem 4rem;width:100%}
-.public-notes-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:var(--ink2);line-height:1.6}
-.public-notes-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink3);margin-bottom:5px}
-.readonly-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3);background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:4px 10px;margin-bottom:1rem}
-.readonly-badge svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.pub-trip-hero{padding:4rem 2rem 3rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.pub-trip-hero-inner{max-width:780px;margin:0 auto}
+.pub-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:inherit;margin-bottom:2rem;transition:color 0.15s;padding:0}
+.pub-back:hover{color:var(--ink)}
+.pub-back svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+.pub-trip-title{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:200;color:var(--ink);line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.25rem}
+.pub-meta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.pub-meta-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--ink3)}
+.pub-meta-tag svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.pub-sep{color:var(--border2)}
+.pub-readonly{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3);border:1px solid var(--border);border-radius:6px;padding:4px 12px}
+.pub-readonly svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.pub-main{flex:1;max-width:780px;margin:0 auto;padding:2.5rem 2rem 5rem;width:100%}
+.pub-notes{border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:2rem;font-size:13px;color:var(--ink2);line-height:1.7}
+.pub-notes-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
 
-/* ══════════════════════════════
-   LOGIN SCREEN
-══════════════════════════════ */
-#screen-login{align-items:center;justify-content:center;padding:2rem;background:var(--bg)}
+/* ══════════════════════════
+   LOGIN
+══════════════════════════ */
+#screen-login{align-items:center;justify-content:center;padding:2rem}
 #screen-login.active{display:flex}
-.login-box{width:100%;max-width:380px}
-.login-logo{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:var(--ink);margin-bottom:0.3rem;cursor:pointer}
-.login-logo em{color:var(--green);font-style:italic}
-.login-sub{font-size:13px;color:var(--ink3);margin-bottom:2rem}
-.login-back{font-size:12px;color:var(--green);cursor:pointer;margin-bottom:1rem;display:inline-flex;align-items:center;gap:4px}
-.login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;display:flex;flex-direction:column;gap:16px}
-.login-tabs{display:flex;gap:4px;background:var(--bg3);border-radius:10px;padding:3px;margin-bottom:4px}
-.login-tab{flex:1;padding:7px;border:none;background:transparent;color:var(--ink3);font-size:13px;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.15s;font-family:inherit}
-.login-tab.active{background:var(--bg4);color:var(--ink)}
-.login-err{background:var(--red-dim);border:1px solid rgba(176,48,48,0.2);border-radius:9px;padding:8px 12px;font-size:12px;color:var(--red);display:none}
+.login-wrap{width:100%;max-width:360px}
+.login-logo-wrap{margin-bottom:2rem}
+.login-logo{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:400;color:var(--ink);display:flex;align-items:baseline;gap:6px;cursor:pointer;width:fit-content}
+.login-logo .logo-ar{color:var(--green)}
+.login-logo .logo-dot{color:var(--ink3);font-size:1.1rem}
+.login-logo .logo-en{font-size:1.2rem;font-weight:200;color:var(--ink2)}
+.login-sub{font-size:13px;color:var(--ink3);margin-top:4px}
+.login-back-link{font-size:12px;color:var(--ink3);cursor:pointer;margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:4px;transition:color 0.15s}
+.login-back-link:hover{color:var(--green)}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.75rem;display:flex;flex-direction:column;gap:14px}
+.login-tabs{display:flex;gap:3px;background:var(--bg3);border-radius:8px;padding:3px}
+.login-tab{flex:1;padding:7px;border:none;background:transparent;color:var(--ink3);font-size:13px;font-weight:500;border-radius:6px;cursor:pointer;transition:all 0.15s;font-family:inherit}
+.login-tab.active{background:var(--bg2);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.login-err{background:var(--red-dim);border:1px solid rgba(196,72,72,0.2);border-radius:7px;padding:8px 12px;font-size:12px;color:var(--red);display:none}
 .login-err.show{display:block}
-.login-nav{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.login-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
 
-/* ══════════════════════════════
-   DASHBOARD SCREEN
-══════════════════════════════ */
+/* ══════════════════════════
+   DASHBOARD
+══════════════════════════ */
 #screen-dash.active{display:flex;flex-direction:column}
-.dash-main{flex:1;padding:2rem;max-width:1100px;margin:0 auto;width:100%}
-.dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
-.dash-heading{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:var(--ink)}
-.empty-state{text-align:center;padding:4rem 2rem;color:var(--ink3)}
-.empty-state h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:300;color:var(--ink2);margin-bottom:0.5rem}
-.empty-state p{font-size:13px;margin-bottom:1.5rem}
-.trip-card-actions{display:flex;gap:4px}
-.public-indicator{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--green);font-weight:500}
-.public-indicator svg{width:11px;height:11px;stroke:var(--green);stroke-width:2;fill:none}
+.dash-main{flex:1;padding:2.5rem 2rem;max-width:1000px;margin:0 auto;width:100%}
+.dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;gap:1rem;flex-wrap:wrap}
+.dash-h{font-family:'Fraunces',serif;font-size:2rem;font-weight:200;color:var(--ink);letter-spacing:-0.02em}
+.trip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.trip-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all 0.18s;display:flex;flex-direction:column}
+.trip-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.tc-accent{height:3px;flex-shrink:0}
+.tc-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:4px}
+.tc-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:200;color:var(--ink);letter-spacing:-0.01em}
+.tc-dest{font-size:12px;color:var(--ink3)}
+.tc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tc-chip{font-size:10px;padding:2px 8px;border-radius:5px;border:1px solid var(--border);color:var(--ink3)}
+.tc-vis{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;margin-top:6px}
+.tc-vis svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none}
+.tc-foot{padding:8px 1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tc-status{font-size:10px;font-weight:500;padding:2px 8px;border-radius:5px}
+.tc-acts{display:flex;gap:4px}
+.empty-dash{text-align:center;padding:5rem 2rem;color:var(--ink3);grid-column:1/-1}
+.empty-dash h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:200;color:var(--ink2);margin-bottom:0.5rem}
+.empty-dash p{font-size:13px;margin-bottom:1.5rem}
 
-/* ══════════════════════════════
-   EDITOR SCREEN
-══════════════════════════════ */
+/* ══════════════════════════
+   EDITOR
+══════════════════════════ */
 #screen-editor.active{display:flex;flex-direction:column}
-.editor-hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;flex-wrap:wrap;flex-shrink:0}
-.back-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:inherit;padding:4px 0;transition:color 0.15s}
-.back-btn:hover{color:var(--ink)}
-.back-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.editor-divider{width:1px;height:20px;background:var(--border);flex-shrink:0}
-.editor-trip-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:300;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.editor-hdr-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.editor-main{flex:1;max-width:820px;margin:0 auto;padding:1.8rem 1.5rem 4rem;width:100%}
-.trip-info-bar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center}
-.trip-info-item{display:flex;flex-direction:column;gap:2px}
-.trip-info-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink3)}
-.trip-info-val{font-size:13px;color:var(--ink2);font-weight:500}
-.trip-info-budget{color:var(--green)}
+.ed-hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:10px;height:54px;position:sticky;top:0;z-index:100;flex-shrink:0}
+.ed-back{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:transparent;font-family:inherit;transition:color 0.15s}
+.ed-back:hover{color:var(--ink)}
+.ed-back svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+.ed-sep{width:1px;height:18px;background:var(--border);flex-shrink:0}
+.ed-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:200;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.01em}
+.ed-right{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.ed-main{flex:1;max-width:780px;margin:0 auto;padding:2rem 1.5rem 5rem;width:100%}
+.trip-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.75rem;display:flex;gap:2rem;flex-wrap:wrap}
+.trip-bar-item{display:flex;flex-direction:column;gap:2px}
+.trip-bar-lbl{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3)}
+.trip-bar-val{font-size:13px;color:var(--ink2);font-weight:500}
+.trip-bar-val.green{color:var(--green)}
 
-/* ── DAYS ── */
-.days-container{display:flex;flex-direction:column}
-.day-wrap{display:flex;align-items:stretch;width:100%}
-.day-wrap.dragging{opacity:0.35}
-.day-wrap.drag-over .day-card{border-color:var(--green);box-shadow:0 0 0 1px var(--green-dk)}
-.tl-col{display:flex;flex-direction:column;align-items:center;padding-top:7px;width:44px;flex-shrink:0}
-.day-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;position:relative;z-index:1;font-family:'Fraunces',serif}
-.tl-line{width:1px;flex:1;min-height:20px;margin-top:4px;opacity:0.35}
-.day-content-col{flex:1;min-width:0;padding:0 0 1.6rem 0.7rem}
-.day-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.18s;width:100%}
-.day-head{padding:13px 14px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.day-head:hover{background:rgba(128,128,128,0.03)}
-.day-head-left{flex:1;min-width:0}
-.day-title-txt{font-family:'Fraunces',serif;font-size:1rem;font-weight:300;color:var(--ink);line-height:1.3}
-.day-sub-txt{font-size:12px;color:var(--ink3);margin-top:3px}
-.day-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;align-items:center}
-.drive-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;background:var(--bg3);color:var(--ink3);border-radius:7px;border:1px solid var(--border)}
+/* DAYS */
+.days-wrap{display:flex;flex-direction:column}
+.day-row{display:flex;align-items:stretch;width:100%}
+.day-row.dragging{opacity:0.35}
+.day-row.drag-over .day-card{border-color:var(--green)}
+.tl{display:flex;flex-direction:column;align-items:center;padding-top:6px;width:42px;flex-shrink:0}
+.tl-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:400;position:relative;z-index:1;font-family:'Fraunces',serif}
+.tl-ln{width:1px;flex:1;min-height:20px;margin-top:3px;opacity:0.3}
+.day-col{flex:1;min-width:0;padding:0 0 1.5rem 0.7rem}
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.15s;width:100%}
+.day-hd{padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.day-hd:hover{background:rgba(128,128,128,0.03)}
+.day-hd-l{flex:1;min-width:0}
+.day-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:200;color:var(--ink);line-height:1.3;letter-spacing:-0.01em}
+.day-sub{font-size:12px;color:var(--ink3);margin-top:2px}
+.day-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;align-items:center}
+.drive-tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 8px;background:var(--bg3);color:var(--ink3);border-radius:6px;border:1px solid var(--border)}
 .drive-tag svg{width:10px;height:10px;stroke:var(--ink3);stroke-width:2;fill:none}
-.region-tag{font-size:10px;padding:2px 9px;border-radius:7px;font-weight:500}
-.day-head-right{display:flex;align-items:center;gap:4px;flex-shrink:0;padding-top:1px}
-.chevron-svg{width:16px;height:16px;stroke:var(--ink3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.2s;flex-shrink:0}
-.day-card.expanded .chevron-svg{transform:rotate(180deg)}
+.reg-tag{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:500}
+.day-hd-r{display:flex;align-items:center;gap:4px;flex-shrink:0;padding-top:1px}
+.chev{width:15px;height:15px;stroke:var(--ink3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.2s;flex-shrink:0}
+.day-card.expanded .chev{transform:rotate(180deg)}
 .day-body{display:none;border-top:1px solid var(--border)}
 .day-card.expanded .day-body{display:block}
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px 7px;gap:8px}
-.sec-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.11em;color:var(--ink3)}
-.attrs-list{padding:0 14px 8px;display:flex;flex-direction:column;gap:5px}
-.attr-row{display:flex;align-items:center;gap:9px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:8px 10px;transition:border-color 0.15s;width:100%}
-.attr-row:hover{border-color:var(--border2)}
-.attr-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.attr-ico svg{width:14px;height:14px;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;gap:8px}
+.sec-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3)}
+.attrs-list{padding:0 14px 8px;display:flex;flex-direction:column;gap:4px}
+.attr-row{display:flex;align-items:center;gap:9px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;width:100%}
+.attr-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0.8}
+.attr-ico svg{width:13px;height:13px;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .attr-info{flex:1;min-width:0}
-.attr-name{font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.attr-meta{font-size:11px;color:var(--ink3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.attr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.cost-badge{font-size:10px;padding:2px 7px;border-radius:6px;white-space:nowrap;font-weight:500}
-.free{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,130,0.2)}
-.paid{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(200,149,58,0.2)}
-.map-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--green);text-decoration:none;background:var(--green-dim);border:1px solid rgba(76,175,130,0.2);border-radius:6px;padding:3px 8px;white-space:nowrap;transition:all 0.15s;font-family:inherit}
-.map-btn:hover{filter:brightness(1.1)}
-.map-btn svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.attr-nm{font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.attr-mt{font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.attr-r{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.cost-b{font-size:10px;padding:2px 7px;border-radius:5px;white-space:nowrap;font-weight:500}
+.b-free{background:var(--green-dim);color:var(--green);border:1px solid rgba(61,158,114,0.2)}
+.b-paid{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(196,144,58,0.2)}
+.map-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--green);text-decoration:none;background:var(--green-dim);border:1px solid rgba(61,158,114,0.2);border-radius:5px;padding:2px 8px;transition:all 0.15s;font-family:inherit}
+.map-btn svg{width:10px;height:10px;stroke:currentColor;stroke-width:2;fill:none}
 .attr-acts{display:flex;gap:3px}
-.callouts{padding:2px 14px 10px;display:flex;flex-direction:column;gap:5px}
-.callout{border-radius:8px;padding:9px 12px;display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.55}
-.callout svg{width:13px;height:13px;flex-shrink:0;margin-top:2px;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.callout.gem{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,130,0.15)}
-.callout.cost{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(200,149,58,0.15)}
-.callout.warn{background:var(--coral-dim);color:var(--coral);border:1px solid rgba(201,96,72,0.15)}
-.callout.dont{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(200,149,58,0.2)}
-.callout.car{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(91,143,212,0.15)}
+.callouts{padding:2px 14px 10px;display:flex;flex-direction:column;gap:4px}
+.callout{border-radius:7px;padding:8px 11px;display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.55}
+.callout svg{width:12px;height:12px;flex-shrink:0;margin-top:2px;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.callout.gem{background:var(--green-dim);color:var(--green);border:1px solid rgba(61,158,114,0.15)}
+.callout.cost{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(196,144,58,0.15)}
+.callout.warn{background:var(--coral-dim);color:var(--coral);border:1px solid rgba(196,88,64,0.15)}
+.callout.dont{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(196,144,58,0.2)}
+.callout.car{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(74,126,196,0.15)}
 .callout-del{margin-inline-start:auto;flex-shrink:0}
 .notes-sec{padding:8px 14px 14px;border-top:1px solid var(--border)}
-.notes-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.11em;color:var(--ink3);margin-bottom:8px}
-.note-item{background:var(--bg3);border:1px solid var(--border);border-inline-start:2px solid var(--gold);border-radius:0 8px 8px 0;padding:8px 10px;margin-bottom:6px;font-size:12.5px;color:var(--ink2);display:flex;justify-content:space-between;gap:8px;align-items:flex-start;line-height:1.55}
-[dir=rtl] .note-item{border-inline-start:2px solid var(--gold);border-radius:8px 0 0 8px}
+.notes-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
+.note-item{background:var(--bg3);border:1px solid var(--border);border-inline-start:2px solid var(--gold);border-radius:0 7px 7px 0;padding:8px 10px;margin-bottom:5px;font-size:12.5px;color:var(--ink2);display:flex;justify-content:space-between;gap:8px;align-items:flex-start;line-height:1.55}
+[dir=rtl] .note-item{border-radius:7px 0 0 7px}
 .note-txt{flex:1;white-space:pre-wrap;word-break:break-word}
 .note-acts{display:flex;gap:3px;flex-shrink:0}
-.empty-notes{font-size:12px;color:var(--ink3);margin-bottom:8px;font-style:italic}
-.add-day-btn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed var(--border2);border-radius:14px;padding:13px;cursor:pointer;color:var(--ink3);font-size:13px;font-family:inherit;background:transparent;width:100%;margin-top:10px;transition:all 0.18s}
+.empty-notes{font-size:12px;color:var(--ink3);margin-bottom:7px;font-style:italic}
+.add-day-btn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed var(--border2);border-radius:12px;padding:12px;cursor:pointer;color:var(--ink3);font-size:13px;font-family:inherit;background:transparent;width:100%;margin-top:10px;transition:all 0.18s}
 .add-day-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
-.add-day-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.add-day-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── REGION COLORS ── */
-.reg-cities .day-num{background:var(--coral-dim);color:var(--coral)}
-.reg-cities .tl-line{background:var(--coral)}
-.reg-cities .region-tag{background:var(--coral-dim);color:var(--coral)}
-.reg-lakes .day-num{background:var(--green-dim);color:var(--green)}
-.reg-lakes .tl-line{background:var(--green)}
-.reg-lakes .region-tag{background:var(--green-dim);color:var(--green)}
-.reg-dolomites .day-num{background:var(--blue-dim);color:var(--blue)}
-.reg-dolomites .tl-line{background:var(--blue)}
-.reg-dolomites .region-tag{background:var(--blue-dim);color:var(--blue)}
-.reg-austria .day-num{background:var(--purple-dim);color:var(--purple)}
-.reg-austria .tl-line{background:var(--purple)}
-.reg-austria .region-tag{background:var(--purple-dim);color:var(--purple)}
-.reg-transit .day-num{background:var(--bg3);color:var(--ink3)}
-.reg-transit .tl-line{background:var(--border2)}
-.reg-transit .region-tag{background:var(--bg3);color:var(--ink3)}
+/* region colors */
+.r-cities .tl-num{background:var(--coral-dim);color:var(--coral)}.r-cities .tl-ln{background:var(--coral)}.r-cities .reg-tag{background:var(--coral-dim);color:var(--coral)}
+.r-lakes .tl-num{background:var(--green-dim);color:var(--green)}.r-lakes .tl-ln{background:var(--green)}.r-lakes .reg-tag{background:var(--green-dim);color:var(--green)}
+.r-dolomites .tl-num{background:var(--blue-dim);color:var(--blue)}.r-dolomites .tl-ln{background:var(--blue)}.r-dolomites .reg-tag{background:var(--blue-dim);color:var(--blue)}
+.r-austria .tl-num{background:var(--purple-dim);color:var(--purple)}.r-austria .tl-ln{background:var(--purple)}.r-austria .reg-tag{background:var(--purple-dim);color:var(--purple)}
+.r-transit .tl-num{background:var(--bg3);color:var(--ink3)}.r-transit .tl-ln{background:var(--border2)}.r-transit .reg-tag{background:var(--bg3);color:var(--ink3)}
 
-/* ── TOGGLE SWITCH ── */
-.toggle-wrap{display:flex;align-items:center;gap:10px;padding:10px 0}
-.toggle-wrap label{font-size:13px;color:var(--ink2);cursor:pointer;flex:1}
-.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
-.toggle input{opacity:0;width:0;height:0;position:absolute}
-.toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--border2);border-radius:22px;transition:0.2s}
-.toggle-slider:before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.2s}
-.toggle input:checked + .toggle-slider{background:var(--green)}
-.toggle input:checked + .toggle-slider:before{transform:translateX(18px)}
-
-@media(max-width:600px){
-  .hero{padding:3.5rem 1.2rem 2.5rem}
-  .landing-main,.dash-main,.editor-main,.public-main{padding:1.2rem 1rem 3rem}
-  .nav{padding:0 1rem}
+@media(max-width:640px){
+  .land-feat-grid{grid-template-columns:1fr 1fr}
+  .land-h1{font-size:clamp(3rem,15vw,5rem)}
+  .feat-card-right{display:none}
   .form-row,.form-row-3{grid-template-columns:1fr}
-  .featured-body{flex-direction:column}
-  .hero-stats{gap:2rem}
+  .nav,.ed-hdr{padding:0 1rem}
+  .land-hero,.land-features,.land-trips-section,.dash-main,.pub-main,.ed-main{padding-left:1.25rem;padding-right:1.25rem}
+  .pub-trip-hero{padding-left:1.25rem;padding-right:1.25rem}
 }
+@media(max-width:400px){.land-feat-grid{grid-template-columns:1fr}}
 @media print{
-  .nav,.editor-hdr,.day-head-right,.sec-hdr .btn,.attr-acts,.note-acts,.callout-del,.add-day-btn{display:none!important}
+  .nav,.ed-hdr,.day-hd-r,.sec-hdr .btn,.attr-acts,.note-acts,.callout-del,.add-day-btn{display:none!important}
   .day-body{display:block!important}
-  .day-card{box-shadow:none!important}
   body{background:#fff;color:#111}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ LANDING SCREEN ══ -->
+<!-- ══ LANDING ══ -->
 <div id="screen-landing" class="screen">
   <nav class="nav">
-    <span class="nav-logo">مَسار</span>
+    <div class="logo"><span class="logo-ar">مَسار</span><span class="logo-dot">·</span><span class="logo-en">Masar</span></div>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-      <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">
-        <svg id="theme-icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg id="theme-icon-sun" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <button class="icon-btn" onclick="toggleTheme()" id="theme-btn-land" title="Toggle theme">
+        <svg id="ti-moon-land" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="ti-sun-land" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
       <div class="lang-toggle">
-        <button class="lang-opt active" id="land-lang-en" onclick="setLang('en')">EN</button>
-        <button class="lang-opt" id="land-lang-ar" onclick="setLang('ar')">ع</button>
+        <button class="lang-opt active" id="ll-en" onclick="setLang('en')">EN</button>
+        <button class="lang-opt" id="ll-ar" onclick="setLang('ar')">ع</button>
       </div>
-      <button class="btn btn-ghost btn-sm" onclick="showScreen('screen-login')" data-k="sign_in">Sign in</button>
+      <button class="btn btn-outline btn-sm" onclick="showLogin()" data-k="sign_in">Sign in</button>
     </div>
   </nav>
 
-  <div class="hero">
-    <div class="hero-eyebrow" data-k="hero_eyebrow">Your journey, beautifully planned</div>
-    <div class="hero-title">مَ<em>سار</em></div>
-    <div class="hero-sub" data-k="hero_sub">Plan trips day by day. Share your routes with the world. Discover journeys from others.</div>
-    <div class="hero-cta">
-      <button class="hero-btn hero-btn-primary" onclick="showScreen('screen-login')" data-k="get_started">Get Started Free</button>
-      <button class="hero-btn hero-btn-ghost" onclick="scrollToTrips()" data-k="explore_trips">Explore Public Trips ↓</button>
+  <section class="land-hero">
+    <div class="land-label" data-k="hero_label">Your journey, beautifully planned</div>
+    <h1 class="land-h1"><span data-k="hero_h1_1">Plan trips.</span><br><span data-k="hero_h1_2">Share routes.</span><br><span>Explore <span>together.</span></span></h1>
+    <p class="land-sub" data-k="hero_sub">Day-by-day planning with maps, notes, and budgets. Make your trips public or keep them private.</p>
+    <div class="land-actions">
+      <button class="btn btn-primary btn-lg" onclick="showLogin()" data-k="get_started">Get started free</button>
+      <button class="btn btn-outline btn-lg" id="explore-btn" onclick="document.getElementById('trips-anchor').scrollIntoView({behavior:'smooth'})" data-k="explore">Explore trips</button>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num" id="stat-trips">—</div><div class="hero-stat-lbl" data-k="stat_trips_lbl">Public Trips</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-lbl" data-k="stat_days_lbl">Days Planned</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">🌍</div><div class="hero-stat-lbl" data-k="stat_lang_lbl">Arabic & English</div></div>
+    <div class="land-stat-row">
+      <div class="land-stat"><div class="land-stat-n" id="stat-n">—</div><div class="land-stat-l" data-k="stat_public">Public trips</div></div>
+      <div class="land-stat"><div class="land-stat-n">∞</div><div class="land-stat-l" data-k="stat_free">Always free</div></div>
+      <div class="land-stat"><div class="land-stat-n">🌍</div><div class="land-stat-l" data-k="stat_lang">AR · EN</div></div>
+    </div>
+  </section>
+
+  <div class="land-features">
+    <div class="land-feat-grid">
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+        <div class="land-feat-title" data-k="f1t">Day-by-day planning</div>
+        <div class="land-feat-desc" data-k="f1d">Break every trip into days. Add stops, drives, and highlights for each one.</div>
+      </div>
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="land-feat-title" data-k="f2t">Google Maps links</div>
+        <div class="land-feat-desc" data-k="f2d">Every attraction links directly to Google Maps. One tap to navigate.</div>
+      </div>
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="land-feat-title" data-k="f3t">Arabic & English</div>
+        <div class="land-feat-desc" data-k="f3d">Full RTL support. Switch between Arabic and English anytime.</div>
+      </div>
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="land-feat-title" data-k="f4t">Public & private</div>
+        <div class="land-feat-desc" data-k="f4d">Share a trip publicly for others to discover, or keep it private for yourself.</div>
+      </div>
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg></div>
+        <div class="land-feat-title" data-k="f5t">Budget tracking</div>
+        <div class="land-feat-desc" data-k="f5d">Set a budget per trip, track free vs paid attractions at a glance.</div>
+      </div>
+      <div class="land-feat">
+        <div class="land-feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="land-feat-title" data-k="f6t">Self-hosted</div>
+        <div class="land-feat-desc" data-k="f6d">Runs on your own server. Your data, your control, forever.</div>
+      </div>
     </div>
   </div>
 
-  <div class="features">
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat1">Day-by-day planning</span></div>
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat2">Google Maps for every stop</span></div>
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat3">Arabic & English (RTL)</span></div>
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat4">Public & private trips</span></div>
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat5">Budget tracking</span></div>
-    <div class="feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span data-k="feat6">Self-hosted & private</span></div>
-  </div>
+  <div class="land-divider"></div>
 
-  <div class="landing-main" id="landing-main">
-    <div id="public-trips-section">
-      <div class="section-title" data-k="public_trips_title">Community Trips</div>
-      <div class="section-sub" data-k="public_trips_sub">Explore trips shared by the community — click any to see the full plan.</div>
-      <div id="featured-container"></div>
-      <div class="trips-grid" id="public-grid"></div>
-    </div>
+  <div class="land-trips-section" id="trips-anchor">
+    <div class="land-section-label" data-k="community_label">Community</div>
+    <div class="land-section-title" data-k="community_title">Public trips</div>
+    <div id="featured-wrap"></div>
+    <div class="pub-grid" id="pub-grid"></div>
   </div>
 </div>
 
 <!-- ══ PUBLIC TRIP VIEW ══ -->
 <div id="screen-public" class="screen">
   <nav class="nav">
-    <span class="nav-logo" onclick="goLanding()">مَسار</span>
+    <div class="logo" onclick="goLanding()" style="cursor:pointer"><span class="logo-ar">مَسار</span><span class="logo-dot">·</span><span class="logo-en">Masar</span></div>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-      <button class="theme-btn" onclick="toggleTheme()">
-        <svg id="theme-icon-moon2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg id="theme-icon-sun2" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <button class="icon-btn" onclick="toggleTheme()">
+        <svg id="ti-moon-pub" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="ti-sun-pub" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
       </button>
-      <button class="btn btn-ghost btn-sm" onclick="showScreen('screen-login')" data-k="sign_in">Sign in</button>
+      <button class="btn btn-primary btn-sm" onclick="showLogin()" data-k="sign_in">Sign in</button>
     </div>
   </nav>
-  <div class="public-hero">
-    <button class="public-back" onclick="goLanding()">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      <span data-k="back_to_trips">Back to trips</span>
-    </button>
-    <div class="public-trip-title" id="pub-trip-title">Trip</div>
-    <div class="public-meta-row" id="pub-meta-row"></div>
-  </div>
-  <div class="public-main">
-    <div class="readonly-badge">
-      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <span data-k="readonly_notice">View only — sign in to create your own trips</span>
+  <div class="pub-trip-hero">
+    <div class="pub-trip-hero-inner">
+      <button class="pub-back" onclick="goLanding()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-k="back_trips">Back to trips</span>
+      </button>
+      <div class="pub-trip-title" id="pub-title">—</div>
+      <div class="pub-meta-row" id="pub-meta"></div>
+      <div class="pub-readonly"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-k="view_only">View only · Sign in to plan your own trips</span></div>
     </div>
-    <div id="pub-notes-box"></div>
-    <div class="days-container" id="pub-days-container"></div>
+  </div>
+  <div class="pub-main">
+    <div id="pub-notes-wrap"></div>
+    <div class="days-wrap" id="pub-days"></div>
   </div>
 </div>
 
-<!-- ══ LOGIN SCREEN ══ -->
-<div id="screen-login" class="screen" style="justify-content:center">
-  <div class="login-box fade-in">
-    <button class="login-back" onclick="goLanding()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      <span data-k="back_home">Back to home</span>
-    </button>
-    <div class="login-logo" onclick="goLanding()">مَسار</div>
-    <div class="login-sub" id="login-sub-txt">Plan your adventures, one day at a time. ✈️</div>
-    <div class="login-card">
-      <div class="login-tabs">
-        <button class="login-tab active" id="tab-login" onclick="switchTab('login')" data-k="sign_in">Sign in</button>
-        <button class="login-tab" id="tab-register" onclick="switchTab('register')" data-k="register">Register</button>
-      </div>
-      <div class="login-err hidden" id="login-err"></div>
-      <div class="field"><label data-k="lbl_username">Username</label><input type="text" id="inp-username" autocomplete="username"></div>
-      <div class="field"><label data-k="lbl_password">Password</label><input type="password" id="inp-password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAuth()"></div>
-      <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doAuth()" id="auth-btn">
-        <span id="auth-btn-txt">Sign in</span>
+<!-- ══ LOGIN ══ -->
+<div id="screen-login" class="screen">
+  <nav class="nav">
+    <div class="logo" onclick="goLanding()" style="cursor:pointer"><span class="logo-ar">مَسار</span><span class="logo-dot">·</span><span class="logo-en">Masar</span></div>
+    <div class="nav-spacer"></div>
+    <div class="nav-right">
+      <button class="icon-btn" onclick="toggleTheme()">
+        <svg id="ti-moon-login" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="ti-sun-login" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
       </button>
-      <div class="login-nav">
-        <div class="lang-toggle">
-          <button class="lang-opt active" id="login-lang-en" onclick="setLang('en')">EN</button>
-          <button class="lang-opt" id="login-lang-ar" onclick="setLang('ar')">ع</button>
+      <div class="lang-toggle">
+        <button class="lang-opt active" id="login-l-en" onclick="setLang('en')">EN</button>
+        <button class="lang-opt" id="login-l-ar" onclick="setLang('ar')">ع</button>
+      </div>
+    </div>
+  </nav>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem">
+    <div class="login-wrap fade-in">
+      <button class="login-back-link" onclick="goLanding()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-k="back_home">Back to home</span>
+      </button>
+      <div class="login-logo-wrap">
+        <div class="login-logo"><span class="logo-ar">مَسار</span><span class="logo-dot">·</span><span class="logo-en">Masar</span></div>
+        <div class="login-sub" id="login-sub-txt">Plan your adventures, one day at a time. ✈️</div>
+      </div>
+      <div class="login-card">
+        <div class="login-tabs">
+          <button class="login-tab active" id="tab-in" onclick="switchTab('login')" data-k="sign_in">Sign in</button>
+          <button class="login-tab" id="tab-reg" onclick="switchTab('register')" data-k="register">Register</button>
         </div>
-        <button class="theme-btn" onclick="toggleTheme()" style="width:32px;height:32px">
-          <svg id="theme-icon-moon3" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg id="theme-icon-sun3" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>
+        <div class="login-err" id="login-err"></div>
+        <div class="field"><label data-k="lbl_username">Username</label><input type="text" id="inp-user" autocomplete="username"></div>
+        <div class="field"><label data-k="lbl_password">Password</label><input type="password" id="inp-pass" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAuth()"></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="doAuth()" id="auth-btn">
+          <span id="auth-btn-txt">Sign in</span>
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ DASHBOARD SCREEN ══ -->
+<!-- ══ DASHBOARD ══ -->
 <div id="screen-dash" class="screen">
   <nav class="nav">
-    <span class="nav-logo" onclick="goLanding()">مَسار</span>
+    <div class="logo" onclick="goLanding()" style="cursor:pointer"><span class="logo-ar">مَسار</span><span class="logo-dot">·</span><span class="logo-en">Masar</span></div>
     <div class="nav-spacer"></div>
     <div class="nav-right">
-      <button class="theme-btn" onclick="toggleTheme()">
-        <svg id="theme-icon-moon4" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg id="theme-icon-sun4" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>
+      <button class="icon-btn" onclick="toggleTheme()">
+        <svg id="ti-moon-dash" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="ti-sun-dash" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
       </button>
       <div class="lang-toggle">
-        <button class="lang-opt active" id="dash-lang-en" onclick="setLang('en')">EN</button>
-        <button class="lang-opt" id="dash-lang-ar" onclick="setLang('ar')">ع</button>
+        <button class="lang-opt active" id="dash-l-en" onclick="setLang('en')">EN</button>
+        <button class="lang-opt" id="dash-l-ar" onclick="setLang('ar')">ع</button>
       </div>
       <div class="user-pill">
-        <div class="user-avatar" id="user-avatar">?</div>
-        <span class="user-name" id="user-name-lbl">User</span>
+        <div class="user-av" id="user-av">?</div>
+        <span class="user-nm" id="user-nm">User</span>
       </div>
-      <button class="btn btn-sm btn-ghost" onclick="logout()">
+      <button class="btn btn-ghost btn-sm" onclick="logout()">
         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span data-k="logout">Sign out</span>
       </button>
@@ -507,171 +532,119 @@ textarea{resize:vertical;min-height:72px}
   </nav>
   <main class="dash-main">
     <div class="dash-top">
-      <div class="dash-heading" data-k="my_trips">My Trips</div>
-      <button class="btn btn-green" onclick="openNewTrip()">
+      <div class="dash-h" data-k="my_trips">My Trips</div>
+      <button class="btn btn-primary" onclick="openNewTrip()">
         <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <span data-k="new_trip">New Trip</span>
       </button>
     </div>
-    <div class="trips-grid" id="trips-grid"></div>
+    <div class="trip-grid" id="trips-grid"></div>
   </main>
 </div>
 
-<!-- ══ EDITOR SCREEN ══ -->
+<!-- ══ EDITOR ══ -->
 <div id="screen-editor" class="screen">
-  <header class="editor-hdr">
-    <button class="back-btn" onclick="goHome()">
+  <header class="ed-hdr">
+    <button class="ed-back" onclick="goHome()">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       <span data-k="back">Back</span>
     </button>
-    <div class="editor-divider"></div>
-    <div class="editor-trip-title" id="editor-trip-title">Trip</div>
-    <div class="editor-hdr-right">
+    <div class="ed-sep"></div>
+    <div class="ed-title" id="ed-trip-title">Trip</div>
+    <div class="ed-right">
       <button class="btn btn-sm" onclick="openEditTrip()">
         <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        <span data-k="edit_trip">Edit Trip</span>
+        <span data-k="edit_trip">Edit</span>
       </button>
     </div>
   </header>
-  <main class="editor-main">
-    <div class="trip-info-bar" id="trip-info-bar"></div>
-    <div class="days-container" id="days-container"></div>
+  <main class="ed-main">
+    <div class="trip-bar" id="trip-bar"></div>
+    <div class="days-wrap" id="days-wrap"></div>
     <button class="add-day-btn" onclick="openAddDay()">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      <span data-k="add_day_long">Add a new day / stop</span>
+      <span data-k="add_day_long">Add a new day</span>
     </button>
   </main>
 </div>
 
 <!-- ══ MODALS ══ -->
-
-<!-- Trip Modal -->
+<!-- Trip -->
 <div class="overlay" id="trip-modal">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" id="trip-modal-title">New Trip</div>
-      <button class="act" onclick="closeModal('trip-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" id="trip-modal-title">New Trip</div><button class="act" onclick="closeModal('trip-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modal-body">
       <div class="form-row">
-        <div class="field"><label data-k="lbl_title">Title</label><input type="text" id="t-title" placeholder="e.g. Italy Road Trip"></div>
-        <div class="field"><label data-k="lbl_dest">Destination</label><input type="text" id="t-dest" placeholder="e.g. Northern Italy"></div>
+        <div class="field"><label data-k="lbl_title">Title</label><input type="text" id="t-title"></div>
+        <div class="field"><label data-k="lbl_dest">Destination</label><input type="text" id="t-dest"></div>
       </div>
       <div class="form-row">
-        <div class="field"><label data-k="lbl_start">Start Date</label><input type="date" id="t-start"></div>
-        <div class="field"><label data-k="lbl_end">End Date</label><input type="date" id="t-end"></div>
+        <div class="field"><label data-k="lbl_start">Start</label><input type="date" id="t-start"></div>
+        <div class="field"><label data-k="lbl_end">End</label><input type="date" id="t-end"></div>
       </div>
       <div class="form-row-3">
-        <div class="field"><label data-k="lbl_budget">Budget</label><input type="number" id="t-budget" placeholder="0" min="0"></div>
-        <div class="field">
-          <label data-k="lbl_currency">Currency</label>
-          <select id="t-currency">
-            <option value="EUR">EUR €</option><option value="USD">USD $</option>
-            <option value="GBP">GBP £</option><option value="SAR">SAR ﷼</option>
-            <option value="AED">AED د.إ</option><option value="JPY">JPY ¥</option>
-          </select>
+        <div class="field"><label data-k="lbl_budget">Budget</label><input type="number" id="t-budget" min="0"></div>
+        <div class="field"><label data-k="lbl_currency">Currency</label>
+          <select id="t-currency"><option value="EUR">EUR €</option><option value="USD">USD $</option><option value="GBP">GBP £</option><option value="SAR">SAR ﷼</option><option value="AED">AED د.إ</option></select>
         </div>
-        <div class="field">
-          <label data-k="lbl_color">Color</label>
-          <select id="t-color">
-            <option value="blue">Blue</option><option value="green">Green</option>
-            <option value="coral">Coral</option><option value="gold">Gold</option>
-            <option value="purple">Purple</option>
-          </select>
+        <div class="field"><label data-k="lbl_color">Color</label>
+          <select id="t-color"><option value="blue">Blue</option><option value="green">Green</option><option value="coral">Coral</option><option value="gold">Gold</option><option value="purple">Purple</option></select>
         </div>
       </div>
-      <div class="field">
-        <label data-k="lbl_status">Status</label>
-        <select id="t-status">
-          <option value="planning">Planning</option><option value="booked">Booked</option>
-          <option value="ongoing">Ongoing</option><option value="completed">Completed</option>
-        </select>
+      <div class="field"><label data-k="lbl_status">Status</label>
+        <select id="t-status"><option value="planning">Planning</option><option value="booked">Booked</option><option value="ongoing">Ongoing</option><option value="completed">Completed</option></select>
       </div>
-      <div class="field"><label data-k="lbl_notes">Notes</label><textarea id="t-notes" placeholder="Packing list, ideas, links..."></textarea></div>
+      <div class="field"><label data-k="lbl_notes">Notes</label><textarea id="t-notes" rows="3"></textarea></div>
       <div class="toggle-wrap">
-        <label for="t-public" data-k="lbl_public">Make this trip public — anyone can discover and view it</label>
+        <label for="t-public" data-k="lbl_public">Make public — anyone can view this trip</label>
         <label class="toggle"><input type="checkbox" id="t-public"><span class="toggle-slider"></span></label>
       </div>
     </div>
-    <div class="modal-foot">
-      <button class="btn" onclick="closeModal('trip-modal')" data-k="cancel">Cancel</button>
-      <button class="btn btn-green" onclick="saveTrip()" data-k="save">Save</button>
-    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('trip-modal')" data-k="cancel">Cancel</button><button class="btn btn-primary" onclick="saveTrip()" data-k="save">Save</button></div>
   </div>
 </div>
-
-<!-- Day Modal -->
+<!-- Day -->
 <div class="overlay" id="day-modal">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" id="day-modal-title">Add Day</div>
-      <button class="act" onclick="closeModal('day-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" id="day-modal-title">Add Day</div><button class="act" onclick="closeModal('day-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modal-body">
       <div class="form-row">
-        <div class="field"><label data-k="lbl_day_title">Day Title</label><input type="text" id="d-title" placeholder="e.g. Arrive Milan"></div>
-        <div class="field"><label data-k="lbl_tagline">Tagline</label><input type="text" id="d-tagline" placeholder="e.g. Canals & aperitivo"></div>
+        <div class="field"><label data-k="lbl_day_title">Day Title</label><input type="text" id="d-title"></div>
+        <div class="field"><label data-k="lbl_tagline">Tagline</label><input type="text" id="d-tagline"></div>
       </div>
       <div class="form-row">
-        <div class="field">
-          <label data-k="lbl_region">Region</label>
-          <select id="d-region">
-            <option value="cities">Cities</option><option value="lakes">Lakes</option>
-            <option value="dolomites">Dolomites</option><option value="austria">Austria</option>
-            <option value="transit">Transit</option>
-          </select>
+        <div class="field"><label data-k="lbl_region">Region</label>
+          <select id="d-region"><option value="cities">Cities</option><option value="lakes">Lakes</option><option value="dolomites">Dolomites</option><option value="austria">Austria</option><option value="transit">Transit</option></select>
         </div>
-        <div class="field"><label data-k="lbl_drive">Drive Info</label><input type="text" id="d-drive" placeholder="e.g. Milan → Como 1.5 hrs"></div>
+        <div class="field"><label data-k="lbl_drive">Drive</label><input type="text" id="d-drive"></div>
       </div>
-      <div class="field"><label data-k="lbl_dont_miss">Don't Miss</label><input type="text" id="d-dont-miss" placeholder="Highlight of the day..."></div>
+      <div class="field"><label data-k="lbl_dont_miss">Don't Miss</label><input type="text" id="d-dontmiss"></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn" onclick="closeModal('day-modal')" data-k="cancel">Cancel</button>
-      <button class="btn btn-green" onclick="saveDay()" data-k="save">Save</button>
-    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('day-modal')" data-k="cancel">Cancel</button><button class="btn btn-primary" onclick="saveDay()" data-k="save">Save</button></div>
   </div>
 </div>
-
-<!-- Attraction Modal -->
+<!-- Attraction -->
 <div class="overlay" id="attr-modal">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" id="attr-modal-title">Add Attraction</div>
-      <button class="act" onclick="closeModal('attr-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" id="attr-modal-title">Add Attraction</div><button class="act" onclick="closeModal('attr-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modal-body">
-      <div class="field"><label data-k="lbl_attr_name">Name</label><input type="text" id="a-name" placeholder="e.g. Verona Arena"></div>
-      <div class="field"><label data-k="lbl_attr_desc">Description</label><input type="text" id="a-meta" placeholder="e.g. 2,000-year-old Roman amphitheatre"></div>
+      <div class="field"><label data-k="lbl_attr_name">Name</label><input type="text" id="a-name"></div>
+      <div class="field"><label data-k="lbl_attr_desc">Description</label><input type="text" id="a-meta"></div>
       <div class="form-row">
-        <div class="field"><label data-k="lbl_cost">Cost</label><input type="text" id="a-cost" placeholder="e.g. €10 or Free"></div>
-        <div class="field">
-          <label data-k="lbl_cost_type">Type</label>
-          <select id="a-cost-type"><option value="free">Free</option><option value="paid">Paid</option></select>
-        </div>
+        <div class="field"><label data-k="lbl_cost">Cost</label><input type="text" id="a-cost"></div>
+        <div class="field"><label data-k="lbl_cost_type">Type</label><select id="a-cost-type"><option value="free">Free</option><option value="paid">Paid</option></select></div>
       </div>
-      <div class="field"><label data-k="lbl_maps">Google Maps URL</label><input type="url" id="a-maps" placeholder="https://maps.google.com/?q=..."></div>
+      <div class="field"><label data-k="lbl_maps">Google Maps URL</label><input type="url" id="a-maps"></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn" onclick="closeModal('attr-modal')" data-k="cancel">Cancel</button>
-      <button class="btn btn-green" onclick="saveAttr()" data-k="save">Save</button>
-    </div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('attr-modal')" data-k="cancel">Cancel</button><button class="btn btn-primary" onclick="saveAttr()" data-k="save">Save</button></div>
   </div>
 </div>
-
-<!-- Note Modal -->
+<!-- Note -->
 <div class="overlay" id="note-modal">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-title" data-k="add_note">Add Note</div>
-      <button class="act" onclick="closeModal('note-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="field"><label data-k="lbl_note">Note</label><textarea id="n-text" rows="4" placeholder="e.g. Book hotel, check restaurant hours..."></textarea></div>
-    </div>
-    <div class="modal-foot">
-      <button class="btn" onclick="closeModal('note-modal')" data-k="cancel">Cancel</button>
-      <button class="btn btn-green" onclick="saveNote()" data-k="save">Save</button>
-    </div>
+    <div class="modal-hdr"><div class="modal-title" data-k="add_note">Add Note</div><button class="act" onclick="closeModal('note-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body"><div class="field"><label data-k="lbl_note">Note</label><textarea id="n-text" rows="4"></textarea></div></div>
+    <div class="modal-foot"><button class="btn" onclick="closeModal('note-modal')" data-k="cancel">Cancel</button><button class="btn btn-primary" onclick="saveNote()" data-k="save">Save</button></div>
   </div>
 </div>
 
@@ -680,12 +653,12 @@ textarea{resize:vertical;min-height:72px}
 <script>
 const API='/api';
 
-// ── ICONS ────────────────────────────────────────────────
-const IC={
+// ── ICONS ───────────────────────────────────────────────
+const I={
   pencil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
   up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>',
-  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>',
+  dn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
   map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
   car:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
@@ -693,692 +666,463 @@ const IC={
   gem:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/></svg>',
   coin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v2m0 8v2m-4-7h8"/></svg>',
   clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  chevron:'<svg class="chevron-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
-  calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  chev:'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>',
   money:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>',
-  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
-  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  arr:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
 };
-function icn(n){return IC[n]||IC.map;}
-function actBtn(icon,title,onclick,danger=''){
-  return`<button class="act${danger?' danger':''}" title="${h(title)}" onclick="${h(onclick)}">${icn(icon)}</button>`;
-}
+function ic(n){return I[n]||I.map;}
+function ab(icon,title,fn,danger){return`<button class="act${danger?' danger':''}" title="${h(title)}" onclick="${h(fn)}">${ic(icon)}</button>`;}
 
-// ── I18N ─────────────────────────────────────────────────
+// ── I18N ────────────────────────────────────────────────
 const T={
-  en:{
-    sign_in:'Sign in',register:'Register',logout:'Sign out',back_home:'Back to home',
-    lbl_username:'Username',lbl_password:'Password',
-    hero_eyebrow:'Your journey, beautifully planned',
-    hero_sub:'Plan trips day by day. Share your routes with the world. Discover journeys from others.',
-    get_started:'Get Started Free',explore_trips:'Explore Public Trips ↓',
-    stat_trips_lbl:'Public Trips',stat_days_lbl:'Days Planned',stat_lang_lbl:'Arabic & English',
-    feat1:'Day-by-day planning',feat2:'Google Maps for every stop',feat3:'Arabic & English (RTL)',
-    feat4:'Public & private trips',feat5:'Budget tracking',feat6:'Self-hosted & private',
-    public_trips_title:'Community Trips',public_trips_sub:'Explore trips shared by the community — click any to see the full plan.',
-    back_to_trips:'Back to trips',
-    readonly_notice:'View only — sign in to create your own trips',
-    featured_badge:'Featured Trip',by:'by',
-    my_trips:'My Trips',new_trip:'New Trip',back:'Back',edit_trip:'Edit Trip',
-    add_day_long:'Add a new day / stop',cancel:'Cancel',save:'Save',
-    lbl_title:'Title',lbl_dest:'Destination',lbl_start:'Start Date',lbl_end:'End Date',
-    lbl_budget:'Budget',lbl_currency:'Currency',lbl_color:'Color',lbl_status:'Status',lbl_notes:'Notes',
-    lbl_public:'Make this trip public — anyone can discover and view it',
-    lbl_day_title:'Day Title',lbl_tagline:'Tagline',lbl_region:'Region',lbl_drive:'Drive Info',
-    lbl_dont_miss:"Don't Miss",lbl_attr_name:'Name',lbl_attr_desc:'Description',
-    lbl_cost:'Cost',lbl_cost_type:'Type',lbl_maps:'Google Maps URL',add_note:'Add Note',lbl_note:'Note',
-    sec_attractions:'Attractions',sec_notes:'My Notes',add_attr:'Add Attraction',add_note_btn:'Add Note',
-    no_notes:'No notes yet.',edit:'Edit',del:'Delete',move_up:'Move up',move_down:'Move down',
-    modal_add_day:'Add Day',modal_edit_day:'Edit Day',modal_add_attr:'Add Attraction',modal_edit_attr:'Edit Attraction',
-    modal_new_trip:'New Trip',modal_edit_trip:'Edit Trip',
-    dont_miss:"Don't miss:",open_maps:'Maps',saved:'Saved!',deleted:'Deleted',day_added:'Day added',
-    days_count:'days',no_trips_h:'No trips yet',no_trips_p:"Create your first trip to get started.",
-    status_planning:'Planning',status_booked:'Booked',status_ongoing:'Ongoing',status_completed:'Completed',
-    reg_cities:'Cities',reg_lakes:'Lakes',reg_dolomites:'Dolomites',reg_austria:'Austria',reg_transit:'Transit',
-    budget_label:'Budget',dates_label:'Dates',dest_label:'Destination',
-    login_tagline:'Plan your adventures, one day at a time. ✈️',
-    public_badge:'Public',private_badge:'Private',view_trip:'View trip →',
-    no_public_trips:'No public trips yet',no_public_trips_p:'Be the first to share a trip with the community.',
-    trip_notes:'Trip Notes',
-  },
-  ar:{
-    sign_in:'تسجيل الدخول',register:'إنشاء حساب',logout:'تسجيل الخروج',back_home:'العودة للرئيسية',
-    lbl_username:'اسم المستخدم',lbl_password:'كلمة المرور',
-    hero_eyebrow:'رحلتك، مخططة بجمال',
-    hero_sub:'خطط لرحلاتك يوماً بيوم. شارك مساراتك مع العالم. اكتشف رحلات الآخرين.',
-    get_started:'ابدأ مجاناً',explore_trips:'استكشف الرحلات ↓',
-    stat_trips_lbl:'رحلة عامة',stat_days_lbl:'يوم مخطط',stat_lang_lbl:'عربي وإنجليزي',
-    feat1:'تخطيط يوم بيوم',feat2:'خرائط جوجل لكل محطة',feat3:'عربي وإنجليزي (RTL)',
-    feat4:'رحلات عامة وخاصة',feat5:'تتبع الميزانية',feat6:'مستضاف ذاتياً وخاص',
-    public_trips_title:'رحلات المجتمع',public_trips_sub:'استكشف الرحلات المشتركة — انقر على أي رحلة لرؤية تفاصيلها.',
-    back_to_trips:'العودة للرحلات',
-    readonly_notice:'للعرض فقط — سجّل دخولك لإنشاء رحلاتك الخاصة',
-    featured_badge:'رحلة مميزة',by:'بواسطة',
-    my_trips:'رحلاتي',new_trip:'رحلة جديدة',back:'رجوع',edit_trip:'تعديل الرحلة',
-    add_day_long:'إضافة يوم / محطة جديدة',cancel:'إلغاء',save:'حفظ',
-    lbl_title:'الاسم',lbl_dest:'الوجهة',lbl_start:'تاريخ البداية',lbl_end:'تاريخ النهاية',
-    lbl_budget:'الميزانية',lbl_currency:'العملة',lbl_color:'اللون',lbl_status:'الحالة',lbl_notes:'ملاحظات',
-    lbl_public:'اجعل هذه الرحلة عامة — يمكن لأي شخص اكتشافها وعرضها',
-    lbl_day_title:'عنوان اليوم',lbl_tagline:'وصف مختصر',lbl_region:'المنطقة',lbl_drive:'القيادة',
-    lbl_dont_miss:'لا يفوتك',lbl_attr_name:'الاسم',lbl_attr_desc:'الوصف',
-    lbl_cost:'التكلفة',lbl_cost_type:'النوع',lbl_maps:'رابط خرائط جوجل',add_note:'إضافة ملاحظة',lbl_note:'ملاحظة',
-    sec_attractions:'المعالم',sec_notes:'ملاحظاتي',add_attr:'إضافة معلم',add_note_btn:'إضافة ملاحظة',
-    no_notes:'لا توجد ملاحظات بعد.',edit:'تعديل',del:'حذف',move_up:'تحريك لأعلى',move_down:'تحريك لأسفل',
-    modal_add_day:'إضافة يوم',modal_edit_day:'تعديل اليوم',modal_add_attr:'إضافة معلم',modal_edit_attr:'تعديل معلم',
-    modal_new_trip:'رحلة جديدة',modal_edit_trip:'تعديل الرحلة',
-    dont_miss:'لا تفوّته:',open_maps:'خريطة',saved:'تم الحفظ!',deleted:'تم الحذف',day_added:'تمت الإضافة',
-    days_count:'أيام',no_trips_h:'لا توجد رحلات',no_trips_p:'أنشئ رحلتك الأولى للبدء.',
-    status_planning:'تخطيط',status_booked:'محجوز',status_ongoing:'جارية',status_completed:'مكتملة',
-    reg_cities:'المدن',reg_lakes:'البحيرات',reg_dolomites:'جبال الدولوميت',reg_austria:'النمسا',reg_transit:'تنقل',
-    budget_label:'الميزانية',dates_label:'التواريخ',dest_label:'الوجهة',
-    login_tagline:'خطط لمغامراتك، يوماً بيوم. ✈️',
-    public_badge:'عام',private_badge:'خاص',view_trip:'عرض الرحلة ←',
-    no_public_trips:'لا توجد رحلات عامة بعد',no_public_trips_p:'كن أول من يشارك رحلة مع المجتمع.',
-    trip_notes:'ملاحظات الرحلة',
-  }
-};
+en:{sign_in:'Sign in',register:'Register',logout:'Sign out',back_home:'Back to home',lbl_username:'Username',lbl_password:'Password',
+  hero_label:'Your journey, beautifully planned',hero_h1_1:'Plan trips.',hero_h1_2:'Share routes.',
+  hero_sub:'Day-by-day planning with maps, notes, and budgets. Make your trips public or keep them private.',
+  get_started:'Get started free',explore:'Explore trips',
+  stat_public:'Public trips',stat_free:'Always free',stat_lang:'AR · EN',
+  f1t:'Day-by-day planning',f1d:'Break every trip into days. Add stops, drives, and highlights.',
+  f2t:'Google Maps links',f2d:'Every attraction links directly to Google Maps. One tap to navigate.',
+  f3t:'Arabic & English',f3d:'Full RTL support. Switch between Arabic and English anytime.',
+  f4t:'Public & private',f4d:'Share a trip publicly for others to discover, or keep it private.',
+  f5t:'Budget tracking',f5d:'Set a budget per trip, track free vs paid attractions at a glance.',
+  f6t:'Self-hosted',f6d:'Runs on your own server. Your data, your control, forever.',
+  community_label:'Community',community_title:'Public trips',
+  back_trips:'Back to trips',view_only:'View only · Sign in to plan your own trips',
+  trip_notes:'Trip notes',my_trips:'My Trips',new_trip:'New Trip',back:'Back',edit_trip:'Edit',
+  add_day_long:'Add a new day',cancel:'Cancel',save:'Save',
+  lbl_title:'Title',lbl_dest:'Destination',lbl_start:'Start',lbl_end:'End',
+  lbl_budget:'Budget',lbl_currency:'Currency',lbl_color:'Color',lbl_status:'Status',lbl_notes:'Notes',
+  lbl_public:'Make public — anyone can view this trip',
+  lbl_day_title:'Day Title',lbl_tagline:'Tagline',lbl_region:'Region',lbl_drive:'Drive',lbl_dont_miss:"Don't Miss",
+  lbl_attr_name:'Name',lbl_attr_desc:'Description',lbl_cost:'Cost',lbl_cost_type:'Type',lbl_maps:'Google Maps URL',
+  add_note:'Add Note',lbl_note:'Note',sec_attrs:'Attractions',sec_notes:'Notes',
+  add_attr:'Add',add_note_btn:'Add Note',no_notes:'No notes yet.',
+  edit:'Edit',del:'Delete',move_up:'Up',move_dn:'Down',
+  modal_add_day:'Add Day',modal_edit_day:'Edit Day',modal_add_attr:'Add Attraction',modal_edit_attr:'Edit Attraction',
+  modal_new_trip:'New Trip',modal_edit_trip:'Edit Trip',
+  dont_miss:"Don't miss:",open_maps:'Maps',saved:'Saved',deleted:'Deleted',day_added:'Day added',
+  days_n:'days',no_trips_h:'No trips yet',no_trips_p:'Create your first trip to get started.',
+  sp:'Planning',sb:'Booked',so:'Ongoing',sc:'Completed',
+  r_cities:'Cities',r_lakes:'Lakes',r_dolomites:'Dolomites',r_austria:'Austria',r_transit:'Transit',
+  budget_lbl:'Budget',dates_lbl:'Dates',dest_lbl:'Destination',public_lbl:'Visibility',
+  login_tagline:'Plan your adventures, one day at a time. ✈️',
+  pub_lbl:'Public',priv_lbl:'Private',by:'by',view_trip:'View trip',
+  no_pub_h:'No public trips yet',no_pub_p:'Be the first to share a trip.',
+},
+ar:{sign_in:'تسجيل الدخول',register:'إنشاء حساب',logout:'تسجيل الخروج',back_home:'العودة',lbl_username:'اسم المستخدم',lbl_password:'كلمة المرور',
+  hero_label:'رحلتك، مخططة بجمال',hero_h1_1:'خطط رحلاتك.',hero_h1_2:'شارك مساراتك.',
+  hero_sub:'تخطيط يوم بيوم مع الخرائط والملاحظات والميزانية. اجعل رحلاتك عامة أو خاصة.',
+  get_started:'ابدأ مجاناً',explore:'استكشف الرحلات',
+  stat_public:'رحلة عامة',stat_free:'مجاني دائماً',stat_lang:'ع · EN',
+  f1t:'تخطيط يوم بيوم',f1d:'قسّم كل رحلة إلى أيام. أضف المحطات والقيادة والأبرز.',
+  f2t:'روابط خرائط جوجل',f2d:'كل معلم يرتبط مباشرة بخرائط جوجل. نقرة واحدة للتنقل.',
+  f3t:'عربي وإنجليزي',f3d:'دعم كامل للـ RTL. التبديل بين العربية والإنجليزية في أي وقت.',
+  f4t:'عام وخاص',f4d:'شارك رحلة للعموم أو احتفظ بها لنفسك.',
+  f5t:'تتبع الميزانية',f5d:'حدد ميزانية لكل رحلة وتابع المعالم المجانية والمدفوعة.',
+  f6t:'مستضاف ذاتياً',f6d:'يعمل على خادمك الخاص. بياناتك، تحكمك، إلى الأبد.',
+  community_label:'المجتمع',community_title:'الرحلات العامة',
+  back_trips:'العودة للرحلات',view_only:'للعرض فقط · سجّل دخولك لتخطيط رحلاتك',
+  trip_notes:'ملاحظات الرحلة',my_trips:'رحلاتي',new_trip:'رحلة جديدة',back:'رجوع',edit_trip:'تعديل',
+  add_day_long:'إضافة يوم جديد',cancel:'إلغاء',save:'حفظ',
+  lbl_title:'الاسم',lbl_dest:'الوجهة',lbl_start:'البداية',lbl_end:'النهاية',
+  lbl_budget:'الميزانية',lbl_currency:'العملة',lbl_color:'اللون',lbl_status:'الحالة',lbl_notes:'ملاحظات',
+  lbl_public:'اجعل الرحلة عامة — يمكن لأي شخص عرضها',
+  lbl_day_title:'عنوان اليوم',lbl_tagline:'وصف مختصر',lbl_region:'المنطقة',lbl_drive:'القيادة',lbl_dont_miss:'لا يفوتك',
+  lbl_attr_name:'الاسم',lbl_attr_desc:'الوصف',lbl_cost:'التكلفة',lbl_cost_type:'النوع',lbl_maps:'رابط خرائط جوجل',
+  add_note:'إضافة ملاحظة',lbl_note:'ملاحظة',sec_attrs:'المعالم',sec_notes:'الملاحظات',
+  add_attr:'إضافة',add_note_btn:'إضافة ملاحظة',no_notes:'لا توجد ملاحظات.',
+  edit:'تعديل',del:'حذف',move_up:'لأعلى',move_dn:'لأسفل',
+  modal_add_day:'إضافة يوم',modal_edit_day:'تعديل اليوم',modal_add_attr:'إضافة معلم',modal_edit_attr:'تعديل معلم',
+  modal_new_trip:'رحلة جديدة',modal_edit_trip:'تعديل الرحلة',
+  dont_miss:'لا تفوّته:',open_maps:'خريطة',saved:'تم الحفظ',deleted:'تم الحذف',day_added:'تمت الإضافة',
+  days_n:'أيام',no_trips_h:'لا توجد رحلات',no_trips_p:'أنشئ رحلتك الأولى.',
+  sp:'تخطيط',sb:'محجوز',so:'جارية',sc:'مكتملة',
+  r_cities:'المدن',r_lakes:'البحيرات',r_dolomites:'جبال الدولوميت',r_austria:'النمسا',r_transit:'تنقل',
+  budget_lbl:'الميزانية',dates_lbl:'التواريخ',dest_lbl:'الوجهة',public_lbl:'الظهور',
+  login_tagline:'خطط لمغامراتك، يوماً بيوم. ✈️',
+  pub_lbl:'عام',priv_lbl:'خاص',by:'بواسطة',view_trip:'عرض الرحلة',
+  no_pub_h:'لا توجد رحلات عامة بعد',no_pub_p:'كن أول من يشارك رحلة.',
+}};
 let lang=localStorage.getItem('masar_lang')||'en';
 function tr(k){return(T[lang]&&T[lang][k])||T.en[k]||k;}
 function h(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
 function applyLang(){
   const ar=lang==='ar';
-  document.documentElement.lang=lang;
-  document.documentElement.dir=ar?'rtl':'ltr';
+  document.documentElement.lang=lang;document.documentElement.dir=ar?'rtl':'ltr';
   document.body.style.fontFamily=ar?"'Noto Sans Arabic','DM Sans',sans-serif":"'DM Sans','Noto Sans Arabic',sans-serif";
   document.querySelectorAll('[data-k]').forEach(el=>{const k=el.getAttribute('data-k');if(T[lang][k])el.textContent=T[lang][k];});
   document.getElementById('auth-btn-txt').textContent=activeTab==='login'?tr('sign_in'):tr('register');
-  document.getElementById('login-sub-txt').textContent=tr('login_tagline');
-  ['land','login','dash'].forEach(prefix=>{
-    const en=document.getElementById(prefix+'-lang-en');
-    const ar2=document.getElementById(prefix+'-lang-ar');
-    if(en){en.classList.toggle('active',lang==='en');ar2.classList.toggle('active',lang==='ar');}
+  const lsub=document.getElementById('login-sub-txt');if(lsub)lsub.textContent=tr('login_tagline');
+  [['ll-en','ll-ar'],['login-l-en','login-l-ar'],['dash-l-en','dash-l-ar']].forEach(([en,a])=>{
+    const ee=document.getElementById(en);const ae=document.getElementById(a);
+    if(ee){ee.classList.toggle('active',lang==='en');ae.classList.toggle('active',lang==='ar');}
   });
   localStorage.setItem('masar_lang',lang);
 }
-function setLang(l){
-  lang=l;applyLang();
-  if(currentUser){fetch(`${API}/auth/lang`,{method:'PATCH',headers:authHeaders(),body:JSON.stringify({lang:l})}).catch(()=>{});}
-  renderTripsGrid();renderDays&&currentTrip&&renderDays();
+function setLang(l){lang=l;applyLang();
+  if(currentUser)fetch(`${API}/auth/lang`,{method:'PATCH',headers:aH(),body:JSON.stringify({lang:l})}).catch(()=>{});
 }
 
-// ── THEME ─────────────────────────────────────────────────
+// ── THEME ───────────────────────────────────────────────
 let theme=localStorage.getItem('masar_theme')||'dark';
 function applyTheme(){
   document.documentElement.setAttribute('data-theme',theme);
-  const isDark=theme==='dark';
-  ['moon','moon2','moon3','moon4'].forEach(id=>{const el=document.getElementById('theme-icon-'+id);if(el)el.classList.toggle('hidden',!isDark);});
-  ['sun','sun2','sun3','sun4'].forEach(id=>{const el=document.getElementById('theme-icon-'+id);if(el)el.classList.toggle('hidden',isDark);});
+  const dark=theme==='dark';
+  ['moon-land','moon-pub','moon-login','moon-dash'].forEach(id=>{const e=document.getElementById('ti-'+id);if(e)e.classList.toggle('hidden',!dark);});
+  ['sun-land','sun-pub','sun-login','sun-dash'].forEach(id=>{const e=document.getElementById('ti-'+id);if(e)e.classList.toggle('hidden',dark);});
   localStorage.setItem('masar_theme',theme);
 }
-function toggleTheme(){
-  theme=theme==='dark'?'light':'dark';applyTheme();
-  if(currentUser){fetch(`${API}/auth/theme`,{method:'PATCH',headers:authHeaders(),body:JSON.stringify({theme})}).catch(()=>{});}
+function toggleTheme(){theme=theme==='dark'?'light':'dark';applyTheme();
+  if(currentUser)fetch(`${API}/auth/theme`,{method:'PATCH',headers:aH(),body:JSON.stringify({theme})}).catch(()=>{});
 }
 
-// ── AUTH ──────────────────────────────────────────────────
+// ── AUTH ────────────────────────────────────────────────
 let token=localStorage.getItem('masar_token');
 let currentUser=JSON.parse(localStorage.getItem('masar_user')||'null');
 let activeTab='login';
-function authHeaders(){return{'Content-Type':'application/json','Authorization':`Bearer ${token}`};}
+function aH(){return{'Content-Type':'application/json','Authorization':`Bearer ${token}`};}
 
-function switchTab(tab){
-  activeTab=tab;
-  document.getElementById('tab-login').classList.toggle('active',tab==='login');
-  document.getElementById('tab-register').classList.toggle('active',tab==='register');
+function showLogin(){showScreen('screen-login');}
+function switchTab(tab){activeTab=tab;
+  document.getElementById('tab-in').classList.toggle('active',tab==='login');
+  document.getElementById('tab-reg').classList.toggle('active',tab==='register');
   document.getElementById('auth-btn-txt').textContent=tab==='login'?tr('sign_in'):tr('register');
-  document.getElementById('login-err').classList.add('hidden');
+  document.getElementById('login-err').classList.remove('show');
 }
 
 async function doAuth(){
-  const username=document.getElementById('inp-username').value.trim();
-  const password=document.getElementById('inp-password').value;
-  const errEl=document.getElementById('login-err');
-  if(!username||!password){errEl.textContent=lang==='ar'?'يرجى ملء جميع الحقول':'Please fill in all fields';errEl.classList.remove('hidden');return;}
-  const btn=document.getElementById('auth-btn');btn.disabled=true;errEl.classList.add('hidden');
+  const user=document.getElementById('inp-user').value.trim();
+  const pass=document.getElementById('inp-pass').value;
+  const err=document.getElementById('login-err');
+  if(!user||!pass){err.textContent=lang==='ar'?'يرجى ملء جميع الحقول':'Please fill in all fields';err.classList.add('show');return;}
+  document.getElementById('auth-btn').disabled=true;err.classList.remove('show');
   try{
     let res;
-    if(activeTab==='login'){
-      const form=new FormData();form.append('username',username);form.append('password',password);
-      res=await fetch(`${API}/auth/login`,{method:'POST',body:form});
-    }else{
-      res=await fetch(`${API}/auth/register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
-    }
-    const data=await res.json();
-    if(!res.ok){errEl.textContent=data.detail||(lang==='ar'?'حدث خطأ':'An error occurred');errEl.classList.remove('hidden');return;}
-    token=data.access_token;
-    currentUser={id:data.user_id,username:data.username,lang:data.lang,theme:data.theme};
+    if(activeTab==='login'){const f=new FormData();f.append('username',user);f.append('password',pass);res=await fetch(`${API}/auth/login`,{method:'POST',body:f});}
+    else{res=await fetch(`${API}/auth/register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass})});}
+    const d=await res.json();
+    if(!res.ok){err.textContent=d.detail||(lang==='ar'?'حدث خطأ':'Error');err.classList.add('show');return;}
+    token=d.access_token;currentUser={id:d.user_id,username:d.username,lang:d.lang,theme:d.theme||'dark'};
     localStorage.setItem('masar_token',token);localStorage.setItem('masar_user',JSON.stringify(currentUser));
-    lang=data.lang||lang;theme=data.theme||theme;applyTheme();applyLang();
+    lang=d.lang||lang;theme=d.theme||theme;applyTheme();applyLang();
     await showDash();
-  }catch(e){errEl.textContent=lang==='ar'?'تعذّر الاتصال بالخادم':'Cannot connect to server';errEl.classList.remove('hidden');}
-  finally{btn.disabled=false;}
+  }catch(e){err.textContent=lang==='ar'?'تعذّر الاتصال':'Cannot connect';err.classList.add('show');}
+  finally{document.getElementById('auth-btn').disabled=false;}
 }
 
-function logout(){
-  token=null;currentUser=null;currentTrip=null;trips=[];
-  localStorage.removeItem('masar_token');localStorage.removeItem('masar_user');
-  goLanding();
-}
+function logout(){token=null;currentUser=null;currentTrip=null;trips=[];localStorage.removeItem('masar_token');localStorage.removeItem('masar_user');goLanding();}
 
-// ── SCREENS ───────────────────────────────────────────────
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});
-  const el=document.getElementById(id);el.classList.add('active');el.style.display='flex';
-  el.style.flexDirection='column';
-}
-
+// ── SCREENS ─────────────────────────────────────────────
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});const el=document.getElementById(id);el.classList.add('active');el.style.display='flex';el.style.flexDirection='column';}
 function goLanding(){showScreen('screen-landing');loadPublicTrips();}
 function goHome(){showDash();}
-function scrollToTrips(){document.getElementById('landing-main').scrollIntoView({behavior:'smooth'});}
 
-async function showDash(){
-  showScreen('screen-dash');updateUserUI();await loadTrips();
-}
-function updateUserUI(){
-  if(!currentUser)return;
-  const initials=currentUser.username.slice(0,2).toUpperCase();
-  document.getElementById('user-avatar').textContent=initials;
-  document.getElementById('user-name-lbl').textContent=currentUser.username;
-}
+async function showDash(){showScreen('screen-dash');updateUserUI();await loadTrips();}
+function updateUserUI(){if(!currentUser)return;document.getElementById('user-av').textContent=currentUser.username.slice(0,2).toUpperCase();document.getElementById('user-nm').textContent=currentUser.username;}
 
-// ── PUBLIC TRIPS ──────────────────────────────────────────
-let publicTrips=[];
+// ── PUBLIC TRIPS ─────────────────────────────────────────
+let pubTrips=[];
 async function loadPublicTrips(){
-  try{
-    const res=await fetch(`${API}/public/trips`);
-    publicTrips=await res.json();
-    renderPublicTrips();
-    const statEl=document.getElementById('stat-trips');
-    if(statEl)statEl.textContent=publicTrips.length;
-  }catch(e){console.warn('Public trips load failed',e);}
+  try{const r=await fetch(`${API}/public/trips`);pubTrips=await r.json();renderPubTrips();}
+  catch(e){console.warn('Public load failed',e);}
 }
 
-const COLORS={blue:'var(--blue)',green:'var(--green)',coral:'var(--coral)',gold:'var(--gold)',purple:'var(--purple)'};
+const ACCENTS={blue:'ac-blue',green:'ac-green',coral:'ac-coral',gold:'ac-gold',purple:'ac-purple'};
+const ACCENT_COLORS={blue:'var(--blue)',green:'var(--green)',coral:'var(--coral)',gold:'var(--gold)',purple:'var(--purple)'};
 
-function renderPublicTrips(){
-  const featCont=document.getElementById('featured-container');
-  const grid=document.getElementById('public-grid');
-  if(!featCont||!grid)return;
-
-  if(publicTrips.length===0){
-    featCont.innerHTML='';
-    grid.innerHTML=`<div class="empty-public" style="grid-column:1/-1">
-      <h3>${tr('no_public_trips')}</h3><p>${tr('no_public_trips_p')}</p>
-      <button class="btn btn-green" onclick="showScreen('screen-login')">${tr('get_started')}</button>
-    </div>`;return;
+function renderPubTrips(){
+  const fw=document.getElementById('featured-wrap');
+  const grid=document.getElementById('pub-grid');
+  const statEl=document.getElementById('stat-n');
+  if(statEl)statEl.textContent=pubTrips.length;
+  if(!fw||!grid)return;
+  if(pubTrips.length===0){
+    fw.innerHTML='';
+    grid.innerHTML=`<div class="empty-pub" style="grid-column:1/-1"><h3>${tr('no_pub_h')}</h3><p>${tr('no_pub_p')}</p><button class="btn btn-primary" onclick="showLogin()">${tr('get_started')}</button></div>`;return;
   }
-
-  // Featured = first trip
-  const f=publicTrips[0];
-  const fColor=COLORS[f.color]||COLORS.blue;
-  const fDate=f.start_date&&f.end_date?`${f.start_date} → ${f.end_date}`:f.start_date||'';
-  featCont.innerHTML=`
-    <div class="featured-trip color-${h(f.color)}" onclick="openPublicTrip(${f.id})">
-      <div class="featured-banner" style="background:${fColor}"></div>
-      <div class="featured-body">
-        <div class="featured-info">
-          <div class="featured-badge">${icn('star')}<span>${tr('featured_badge')}</span></div>
-          <div class="featured-title">${h(f.title)}</div>
-          ${f.destination?`<div class="featured-dest">${icn('map')}<span>${h(f.destination)}</span></div>`:''}
-          <div class="featured-meta">
-            ${fDate?`<div class="meta-chip">${icn('calendar')}<span>${h(fDate)}</span></div>`:''}
-            ${f.budget>0?`<div class="meta-chip">${icn('money')}<span>${Number(f.budget).toLocaleString()} ${h(f.currency)}</span></div>`:''}
-            ${f.day_count>0?`<div class="meta-chip"><span>${f.day_count} ${tr('days_count')}</span></div>`:''}
+  const f=pubTrips[0];const fDate=f.start_date&&f.end_date?`${f.start_date} → ${f.end_date}`:f.start_date||'';
+  fw.innerHTML=`
+    <div class="feat-card" onclick="openPubTrip(${f.id})">
+      <div class="feat-card-accent" style="background:${ACCENT_COLORS[f.color]||ACCENT_COLORS.blue}"></div>
+      <div class="feat-card-body">
+        <div class="feat-card-info">
+          <div class="feat-card-kicker">${tr('community_label')} · ${tr('pub_lbl')}</div>
+          <div class="feat-card-title">${h(f.title)}</div>
+          ${f.destination?`<div class="feat-card-dest">${h(f.destination)}</div>`:''}
+          <div class="feat-card-chips">
+            ${fDate?`<span class="chip">${h(fDate)}</span>`:''}
+            ${f.day_count>0?`<span class="chip">${f.day_count} ${tr('days_n')}</span>`:''}
+            ${f.budget>0?`<span class="chip">${Number(f.budget).toLocaleString()} ${h(f.currency)}</span>`:''}
           </div>
-          <div class="featured-author">${tr('by')} ${h(f.username)}</div>
         </div>
-        <div class="featured-cta"><span>${tr('view_trip')}</span>${icn('arrow')}</div>
+        <div class="feat-card-right">
+          <div class="feat-card-author">${tr('by')} ${h(f.username)}</div>
+          <div class="feat-card-cta">${tr('view_trip')} ${ic('arr')}</div>
+        </div>
       </div>
     </div>`;
-
-  // Grid = rest
-  const rest=publicTrips.slice(1);
-  grid.innerHTML=rest.map(t=>{
-    const dateStr=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'';
-    const statusLbl=tr('status_'+t.status)||t.status;
-    return`<div class="trip-card color-${h(t.color)}" onclick="openPublicTrip(${t.id})">
-      <div class="trip-card-top"></div>
-      <div class="trip-card-body">
-        <div class="trip-card-title">${h(t.title)}</div>
-        ${t.destination?`<div class="trip-card-dest">${icn('map')}<span>${h(t.destination)}</span></div>`:''}
-        <div class="trip-card-chips">
-          ${dateStr?`<span class="trip-chip">${h(dateStr)}</span>`:''}
-          ${t.day_count>0?`<span class="trip-chip">${t.day_count} ${tr('days_count')}</span>`:''}
-          ${t.budget>0?`<span class="trip-chip">${Number(t.budget).toLocaleString()} ${h(t.currency)}</span>`:''}
-        </div>
+  grid.innerHTML=pubTrips.slice(1).map(t=>{
+    const d=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'';
+    return`<div class="pub-card" onclick="openPubTrip(${t.id})">
+      <div class="pub-card-accent ${ACCENTS[t.color]||'ac-blue'}"></div>
+      <div class="pub-card-body">
+        <div class="pub-card-title">${h(t.title)}</div>
+        ${t.destination?`<div class="pub-card-dest">${h(t.destination)}</div>`:''}
+        ${d?`<div class="pub-card-dest">${h(d)}</div>`:''}
       </div>
-      <div class="trip-card-foot">
-        <span class="trip-status status-${h(t.status)}">${h(statusLbl)}</span>
-        <span class="trip-author">${tr('by')} ${h(t.username)}</span>
+      <div class="pub-card-foot">
+        <span class="pub-card-author">${tr('by')} ${h(t.username)}</span>
+        ${t.day_count>0?`<span class="pub-card-days">${t.day_count} ${tr('days_n')}</span>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-async function openPublicTrip(id){
+async function openPubTrip(id){
   showScreen('screen-public');
-  document.getElementById('pub-days-container').innerHTML=`<div style="display:flex;justify-content:center;padding:3rem"><div class="spinner"></div></div>`;
+  document.getElementById('pub-days').innerHTML=`<div style="display:flex;justify-content:center;padding:3rem"><div class="spinner"></div></div>`;
   try{
-    const res=await fetch(`${API}/public/trips/${id}`);
-    if(!res.ok){toast('Trip not found');goLanding();return;}
-    const trip=await res.json();
-    document.getElementById('pub-trip-title').textContent=trip.title;
-    const fDate=trip.start_date&&trip.end_date?`${trip.start_date} → ${trip.end_date}`:trip.start_date||'';
-    document.getElementById('pub-meta-row').innerHTML=`
-      ${trip.destination?`<div class="public-meta-pill">${icn('map')}<span>${h(trip.destination)}</span></div>`:''}
-      ${fDate?`<div class="public-meta-pill">${icn('calendar')}<span>${h(fDate)}</span></div>`:''}
-      ${trip.budget>0?`<div class="public-meta-pill">${icn('money')}<span>${Number(trip.budget).toLocaleString()} ${h(trip.currency)}</span></div>`:''}
-      ${trip.day_count>0?`<div class="public-meta-pill"><span>${trip.day_count} ${tr('days_count')}</span></div>`:''}
-      <div class="public-meta-pill">${icn('globe')}<span>${tr('by')} ${h(trip.username)}</span></div>`;
-    const notesBox=document.getElementById('pub-notes-box');
-    notesBox.innerHTML=trip.notes?`<div class="public-notes-box"><div class="public-notes-lbl">${tr('trip_notes')}</div>${h(trip.notes)}</div>`:'';
-    renderPublicDays(trip.days||[]);
-  }catch(e){toast('Error loading trip');goLanding();}
+    const r=await fetch(`${API}/public/trips/${id}`);
+    if(!r.ok){toast(tr('not_found')||'Not found');goLanding();return;}
+    const t=await r.json();
+    document.getElementById('pub-title').textContent=t.title;
+    const d=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'';
+    document.getElementById('pub-meta').innerHTML=`
+      ${t.destination?`<span class="pub-meta-tag">${ic('map')}<span>${h(t.destination)}</span></span><span class="pub-sep">·</span>`:''}
+      ${d?`<span class="pub-meta-tag">${ic('cal')}<span>${h(d)}</span></span><span class="pub-sep">·</span>`:''}
+      ${t.budget>0?`<span class="pub-meta-tag">${ic('money')}<span>${Number(t.budget).toLocaleString()} ${h(t.currency)}</span></span><span class="pub-sep">·</span>`:''}
+      <span class="pub-meta-tag"><span>${tr('by')} ${h(t.username)}</span></span>`;
+    const nw=document.getElementById('pub-notes-wrap');
+    nw.innerHTML=t.notes?`<div class="pub-notes"><div class="pub-notes-lbl">${tr('trip_notes')}</div>${h(t.notes)}</div>`:'';
+    renderPubDays(t.days||[]);
+  }catch(e){toast('Error');goLanding();}
 }
 
-function renderPublicDays(days){
-  const cont=document.getElementById('pub-days-container');
-  cont.innerHTML='';
-  days.forEach((day,idx)=>{
-    const reg='reg-'+(day.region||'cities');
-    const regionLabel=tr('reg_'+(day.region||'cities'));
-    const wrap=document.createElement('div');
-    wrap.className='day-wrap';
-    const attrHtml=(day.attractions||[]).map(a=>`
-      <div class="attr-row">
-        <div class="attr-ico" style="opacity:0.8">${icn('map')}</div>
-        <div class="attr-info"><div class="attr-name">${h(a.name)}</div><div class="attr-meta">${h(a.meta||'')}</div></div>
-        <div class="attr-right">
-          <span class="cost-badge ${h(a.cost_type||'free')}">${h(a.cost||'')}</span>
-          ${a.maps_url?`<a class="map-btn" href="${h(a.maps_url)}" target="_blank" rel="noopener">${icn('map')}<span>${tr('open_maps')}</span></a>`:''}
-        </div>
-      </div>`).join('');
-    const calloutIcons={gem:'gem',cost:'coin',warn:'clock',dont:'star',car:'car'};
-    const calloutHtml=(day.callouts||[]).map(c=>`
-      <div class="callout ${h(c.type||'info')}">${icn(calloutIcons[c.type]||'star')}<span>${h(c.text)}</span></div>`).join('');
-    const notesHtml=(day.notes||[]).map(n=>`
-      <div class="note-item"><div class="note-txt">${h(n.text)}</div></div>`).join('');
-    wrap.innerHTML=`
-      <div class="tl-col ${reg}">
-        <div class="day-num">${day.num}</div>
-        <div class="tl-line"></div>
-      </div>
-      <div class="day-content-col">
-        <div class="day-card" id="pdcard-${day.id}">
-          <div class="day-head" onclick="toggleDay('pdcard-${day.id}')">
-            <div class="day-head-left">
-              <div class="day-title-txt">${h(day.title)}</div>
-              <div class="day-sub-txt">${h(day.tagline||'')}</div>
-              <div class="day-tags">
-                ${day.drive?`<div class="drive-tag">${icn('car')}<span>${h(day.drive)}</span></div>`:''}
-                <span class="region-tag ${reg}">${h(regionLabel)}</span>
-              </div>
+function renderPubDays(days){
+  const cont=document.getElementById('pub-days');cont.innerHTML='';
+  const cIcons={gem:'gem',cost:'coin',warn:'clock',dont:'star',car:'car'};
+  days.forEach(day=>{
+    const reg='r-'+(day.region||'cities');
+    const wrap=document.createElement('div');wrap.className='day-row';
+    const attrs=(day.attractions||[]).map(a=>`<div class="attr-row">
+      <div class="attr-ico">${ic('map')}</div>
+      <div class="attr-info"><div class="attr-nm">${h(a.name)}</div><div class="attr-mt">${h(a.meta||'')}</div></div>
+      <div class="attr-r"><span class="cost-b ${a.cost_type==='paid'?'b-paid':'b-free'}">${h(a.cost||'')}</span>
+      ${a.maps_url?`<a class="map-btn" href="${h(a.maps_url)}" target="_blank" rel="noopener">${ic('map')}<span>${tr('open_maps')}</span></a>`:''}</div></div>`).join('');
+    const calls=(day.callouts||[]).map(c=>`<div class="callout ${h(c.type)}">${ic(cIcons[c.type]||'star')}<span>${h(c.text)}</span></div>`).join('');
+    const notes=(day.notes||[]).map(n=>`<div class="note-item"><div class="note-txt">${h(n.text)}</div></div>`).join('');
+    wrap.innerHTML=`<div class="tl ${reg}"><div class="tl-num">${day.num}</div><div class="tl-ln"></div></div>
+      <div class="day-col"><div class="day-card" id="pdc-${day.id}">
+        <div class="day-hd" onclick="toggleCard('pdc-${day.id}')">
+          <div class="day-hd-l">
+            <div class="day-title">${h(day.title)}</div>
+            <div class="day-sub">${h(day.tagline||'')}</div>
+            <div class="day-tags">
+              ${day.drive?`<div class="drive-tag">${ic('car')}<span>${h(day.drive)}</span></div>`:''}
+              <span class="reg-tag ${reg}">${h(tr('r_'+(day.region||'cities')))}</span>
             </div>
-            <div class="day-head-right">${IC.chevron}</div>
           </div>
-          <div class="day-body">
-            ${attrHtml?`<div class="sec-hdr"><span class="sec-lbl">${tr('sec_attractions')}</span></div><div class="attrs-list">${attrHtml}</div>`:''}
-            ${calloutHtml?`<div class="callouts">${calloutHtml}</div>`:''}
-            ${day.dont_miss?`<div class="callouts"><div class="callout dont">${icn('star')}<span><strong>${tr('dont_miss')}</strong> ${h(day.dont_miss)}</span></div></div>`:''}
-            ${notesHtml?`<div class="notes-sec"><div class="notes-lbl">${tr('sec_notes')}</div>${notesHtml}</div>`:''}
-          </div>
+          <div class="day-hd-r">${I.chev}</div>
         </div>
-      </div>`;
+        <div class="day-body">
+          ${attrs?`<div class="sec-hdr"><span class="sec-lbl">${tr('sec_attrs')}</span></div><div class="attrs-list">${attrs}</div>`:''}
+          ${calls?`<div class="callouts">${calls}</div>`:''}
+          ${day.dont_miss?`<div class="callouts"><div class="callout dont">${ic('star')}<span><strong>${tr('dont_miss')}</strong> ${h(day.dont_miss)}</span></div></div>`:''}
+          ${notes?`<div class="notes-sec"><div class="notes-lbl">${tr('sec_notes')}</div>${notes}</div>`:''}
+        </div>
+      </div></div>`;
     cont.appendChild(wrap);
   });
 }
 
-function toggleDay(cardId){
-  const c=document.getElementById(cardId);
-  const open=c.classList.contains('expanded');
-  // only close siblings in same container
-  c.parentElement.parentElement.parentElement.querySelectorAll('.day-card').forEach(x=>x.classList.remove('expanded'));
-  if(!open)c.classList.add('expanded');
-}
+function toggleCard(id){const c=document.getElementById(id);if(!c)return;const op=c.classList.contains('expanded');c.parentElement.parentElement.parentElement.querySelectorAll('.day-card').forEach(x=>x.classList.remove('expanded'));if(!op)c.classList.add('expanded');}
 
-// ── DASHBOARD ─────────────────────────────────────────────
+// ── DASHBOARD ────────────────────────────────────────────
 let trips=[];let editingTripId=null;
-const STATUS_CLS={planning:'status-planning',booked:'status-booked',ongoing:'status-ongoing',completed:'status-completed'};
+const SP={planning:'sp',booked:'sb',ongoing:'so',completed:'sc'};
+const SC={planning:'sp-planning',booked:'sp-booked',ongoing:'sp-ongoing',completed:'sp-completed'};
 
 async function loadTrips(){
-  const grid=document.getElementById('trips-grid');
-  grid.innerHTML=`<div style="grid-column:1/-1;display:flex;justify-content:center;padding:2rem"><div class="spinner"></div></div>`;
-  try{
-    const res=await fetch(`${API}/trips`,{headers:authHeaders()});
-    if(res.status===401){logout();return;}
-    trips=await res.json();renderTripsGrid();
-  }catch(e){grid.innerHTML=`<div style="color:var(--ink3);padding:2rem">${lang==='ar'?'خطأ في التحميل':'Failed to load'}</div>`;}
+  const g=document.getElementById('trips-grid');
+  g.innerHTML=`<div style="grid-column:1/-1;display:flex;justify-content:center;padding:3rem"><div class="spinner"></div></div>`;
+  try{const r=await fetch(`${API}/trips`,{headers:aH()});if(r.status===401){logout();return;}trips=await r.json();renderGrid();}
+  catch(e){g.innerHTML=`<div style="color:var(--ink3);padding:2rem">Error loading</div>`;}
 }
 
-function renderTripsGrid(){
-  const grid=document.getElementById('trips-grid');
-  if(trips.length===0){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1">
-      <h3>${tr('no_trips_h')}</h3><p>${tr('no_trips_p')}</p>
-      <button class="btn btn-green" onclick="openNewTrip()">${icn('plus')}<span>${tr('new_trip')}</span></button>
-    </div>`;return;
-  }
-  grid.innerHTML=trips.map(t=>{
-    const dateStr=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'';
-    const budgetStr=t.budget>0?`${Number(t.budget).toLocaleString()} ${t.currency}`:'';
-    const statusLbl=tr('status_'+t.status)||t.status;
-    return`<div class="trip-card color-${h(t.color)}" onclick="openTrip(${t.id})">
-      <div class="trip-card-top"></div>
-      <div class="trip-card-body">
-        <div class="trip-card-title">${h(t.title)}</div>
-        ${t.destination?`<div class="trip-card-dest">${icn('map')}<span>${h(t.destination)}</span></div>`:''}
-        <div class="trip-card-chips">
-          ${dateStr?`<span class="trip-chip">${h(dateStr)}</span>`:''}
-          ${budgetStr?`<span class="trip-chip">${h(budgetStr)}</span>`:''}
-          ${t.day_count>0?`<span class="trip-chip">${t.day_count} ${tr('days_count')}</span>`:''}
-        </div>
-        ${t.is_public?`<div class="public-indicator">${icn('globe')}<span>${tr('public_badge')}</span></div>`:`<div class="public-indicator" style="color:var(--ink3)">${icn('lock')}<span style="color:var(--ink3)">${tr('private_badge')}</span></div>`}
+function renderGrid(){
+  const g=document.getElementById('trips-grid');
+  if(trips.length===0){g.innerHTML=`<div class="empty-dash"><h3>${tr('no_trips_h')}</h3><p>${tr('no_trips_p')}</p><button class="btn btn-primary" onclick="openNewTrip()">${ic('plus')}<span>${tr('new_trip')}</span></button></div>`;return;}
+  g.innerHTML=trips.map(t=>{
+    const d=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'';
+    const b=t.budget>0?`${Number(t.budget).toLocaleString()} ${t.currency}`:'';
+    const sl=tr(SP[t.status]||'sp');const sc=SC[t.status]||'sp-planning';
+    return`<div class="trip-card" onclick="openTrip(${t.id})">
+      <div class="tc-accent ${ACCENTS[t.color]||'ac-blue'}"></div>
+      <div class="tc-body">
+        <div class="tc-title">${h(t.title)}</div>
+        ${t.destination?`<div class="tc-dest">${h(t.destination)}</div>`:''}
+        <div class="tc-chips">${d?`<span class="tc-chip">${h(d)}</span>`:''}${b?`<span class="tc-chip">${h(b)}</span>`:''}</div>
+        <div class="tc-vis" style="color:${t.is_public?'var(--green)':'var(--ink3)'}">${t.is_public?ic('globe'):ic('lock')}<span>${t.is_public?tr('pub_lbl'):tr('priv_lbl')}</span></div>
       </div>
-      <div class="trip-card-foot">
-        <span class="trip-status ${STATUS_CLS[t.status]||''}">${h(statusLbl)}</span>
-        <div class="trip-card-actions" onclick="event.stopPropagation()">
-          ${actBtn('pencil',tr('edit'),`openEditTripFromDash(${t.id})`)}
-          ${actBtn('trash',tr('del'),`deleteTripFromDash(${t.id})`,true)}
+      <div class="tc-foot">
+        <span class="tc-status ${sc}">${h(sl)}</span>
+        <div class="tc-acts" onclick="event.stopPropagation()">
+          ${ab('pencil',tr('edit'),`openEditTripD(${t.id})`)}
+          ${ab('trash',tr('del'),`deleteTripD(${t.id})`,true)}
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function openNewTrip(){
-  editingTripId=null;
-  document.getElementById('trip-modal-title').textContent=tr('modal_new_trip');
+function openNewTrip(){editingTripId=null;document.getElementById('trip-modal-title').textContent=tr('modal_new_trip');
   ['t-title','t-dest','t-notes'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('t-start').value='';document.getElementById('t-end').value='';
-  document.getElementById('t-budget').value='';document.getElementById('t-currency').value='EUR';
-  document.getElementById('t-color').value='blue';document.getElementById('t-status').value='planning';
-  document.getElementById('t-public').checked=false;
+  document.getElementById('t-start').value='';document.getElementById('t-end').value='';document.getElementById('t-budget').value='';
+  document.getElementById('t-currency').value='EUR';document.getElementById('t-color').value='blue';
+  document.getElementById('t-status').value='planning';document.getElementById('t-public').checked=false;
   openModal('trip-modal');
 }
-function openEditTripFromDash(id){
-  const t=trips.find(x=>x.id===id);if(!t)return;editingTripId=id;
+function openEditTripD(id){const t=trips.find(x=>x.id===id);if(!t)return;editingTripId=id;
   document.getElementById('trip-modal-title').textContent=tr('modal_edit_trip');
   document.getElementById('t-title').value=t.title;document.getElementById('t-dest').value=t.destination||'';
   document.getElementById('t-start').value=t.start_date||'';document.getElementById('t-end').value=t.end_date||'';
   document.getElementById('t-budget').value=t.budget||'';document.getElementById('t-currency').value=t.currency||'EUR';
   document.getElementById('t-color').value=t.color||'blue';document.getElementById('t-status').value=t.status||'planning';
-  document.getElementById('t-notes').value=t.notes||'';
-  document.getElementById('t-public').checked=!!t.is_public;
+  document.getElementById('t-notes').value=t.notes||'';document.getElementById('t-public').checked=!!t.is_public;
   openModal('trip-modal');
 }
-function openEditTrip(){if(currentTrip)openEditTripFromDash(currentTrip.id);}
+function openEditTrip(){if(currentTrip)openEditTripD(currentTrip.id);}
 async function saveTrip(){
-  const title=document.getElementById('t-title').value.trim();if(!title){toast(lang==='ar'?'يرجى إدخال عنوان':'Please enter a title');return;}
-  const body={title,destination:document.getElementById('t-dest').value.trim(),
-    start_date:document.getElementById('t-start').value,end_date:document.getElementById('t-end').value,
-    budget:parseFloat(document.getElementById('t-budget').value)||0,
-    currency:document.getElementById('t-currency').value,
-    color:document.getElementById('t-color').value,status:document.getElementById('t-status').value,
-    notes:document.getElementById('t-notes').value.trim(),
-    is_public:document.getElementById('t-public').checked};
+  const title=document.getElementById('t-title').value.trim();if(!title){toast(lang==='ar'?'يرجى إدخال عنوان':'Enter a title');return;}
+  const body={title,destination:document.getElementById('t-dest').value.trim(),start_date:document.getElementById('t-start').value,end_date:document.getElementById('t-end').value,budget:parseFloat(document.getElementById('t-budget').value)||0,currency:document.getElementById('t-currency').value,color:document.getElementById('t-color').value,status:document.getElementById('t-status').value,notes:document.getElementById('t-notes').value.trim(),is_public:document.getElementById('t-public').checked};
   try{
-    let res;
-    if(editingTripId){
-      res=await fetch(`${API}/trips/${editingTripId}`,{method:'PUT',headers:authHeaders(),body:JSON.stringify(body)});
-      const saved=await res.json();
-      if(currentTrip&&currentTrip.id===editingTripId){currentTrip=saved;renderTripInfoBar();document.getElementById('editor-trip-title').textContent=saved.title;}
-      trips=trips.map(t=>t.id===editingTripId?{...saved,day_count:t.day_count}:t);
-    }else{
-      res=await fetch(`${API}/trips`,{method:'POST',headers:authHeaders(),body:JSON.stringify(body)});
-      const saved=await res.json();trips.unshift({...saved,day_count:0});
-    }
-    closeModal('trip-modal');renderTripsGrid();toast(tr('saved'));
+    let r;
+    if(editingTripId){r=await fetch(`${API}/trips/${editingTripId}`,{method:'PUT',headers:aH(),body:JSON.stringify(body)});const s=await r.json();if(currentTrip&&currentTrip.id===editingTripId){currentTrip=s;renderTripBar();document.getElementById('ed-trip-title').textContent=s.title;}trips=trips.map(t=>t.id===editingTripId?{...s,day_count:t.day_count}:t);}
+    else{r=await fetch(`${API}/trips`,{method:'POST',headers:aH(),body:JSON.stringify(body)});const s=await r.json();trips.unshift({...s,day_count:0});}
+    closeModal('trip-modal');renderGrid();toast(tr('saved'));
   }catch(e){toast('Error');}
 }
-async function deleteTripFromDash(id){
-  if(!confirm(tr('del')+'?'))return;
-  try{await fetch(`${API}/trips/${id}`,{method:'DELETE',headers:authHeaders()});trips=trips.filter(t=>t.id!==id);renderTripsGrid();toast(tr('deleted'));}
+async function deleteTripD(id){if(!confirm(tr('del')+'?'))return;
+  try{await fetch(`${API}/trips/${id}`,{method:'DELETE',headers:aH()});trips=trips.filter(t=>t.id!==id);renderGrid();toast(tr('deleted'));}
   catch(e){toast('Error');}
 }
 
-// ── EDITOR ────────────────────────────────────────────────
+// ── EDITOR ───────────────────────────────────────────────
 let currentTrip=null;let currentDays=[];
-let editDayId=null,editAttrId=null,editAttrDayId=null;
-let activeNoteDayId=null,editNoteIdx=null,dragSrcIdx=null;
+let editDayId=null,editAttrId=null,editAttrDayId=null,activeNoteDay=null,editNoteIdx=null,dragSrc=null;
 
-async function openTrip(id){
-  const trip=trips.find(t=>t.id===id);if(!trip)return;
-  currentTrip=trip;document.getElementById('editor-trip-title').textContent=trip.title;
-  showScreen('screen-editor');renderTripInfoBar();await loadDays();
+async function openTrip(id){const t=trips.find(x=>x.id===id);if(!t)return;currentTrip=t;document.getElementById('ed-trip-title').textContent=t.title;showScreen('screen-editor');renderTripBar();await loadDays();}
+
+function renderTripBar(){const t=currentTrip;const bar=document.getElementById('trip-bar');
+  const d=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'—';
+  const b=t.budget>0?`${Number(t.budget).toLocaleString()} ${t.currency}`:'—';
+  bar.innerHTML=`${t.destination?`<div class="trip-bar-item"><div class="trip-bar-lbl">${tr('dest_lbl')}</div><div class="trip-bar-val">${h(t.destination)}</div></div>`:''}<div class="trip-bar-item"><div class="trip-bar-lbl">${tr('dates_lbl')}</div><div class="trip-bar-val">${h(d)}</div></div><div class="trip-bar-item"><div class="trip-bar-lbl">${tr('budget_lbl')}</div><div class="trip-bar-val green">${h(b)}</div></div><div class="trip-bar-item"><div class="trip-bar-lbl">${tr('public_lbl')}</div><div class="trip-bar-val" style="color:${t.is_public?'var(--green)':'var(--ink3)'}">${t.is_public?'🌍 '+tr('pub_lbl'):'🔒 '+tr('priv_lbl')}</div></div>`;
 }
 
-function renderTripInfoBar(){
-  const t=currentTrip;const bar=document.getElementById('trip-info-bar');
-  const budgetStr=t.budget>0?`${Number(t.budget).toLocaleString()} ${t.currency}`:'—';
-  const dateStr=t.start_date&&t.end_date?`${t.start_date} → ${t.end_date}`:t.start_date||'—';
-  bar.innerHTML=`
-    ${t.destination?`<div class="trip-info-item"><div class="trip-info-label">${tr('dest_label')}</div><div class="trip-info-val">${h(t.destination)}</div></div>`:''}
-    <div class="trip-info-item"><div class="trip-info-label">${tr('dates_label')}</div><div class="trip-info-val">${h(dateStr)}</div></div>
-    <div class="trip-info-item"><div class="trip-info-label">${tr('budget_label')}</div><div class="trip-info-val trip-info-budget">${h(budgetStr)}</div></div>
-    <div class="trip-info-item"><div class="trip-info-label">${t.is_public?tr('public_badge'):tr('private_badge')}</div><div class="trip-info-val" style="color:${t.is_public?'var(--green)':'var(--ink3)'}">${t.is_public?'🌍':'🔒'}</div></div>
-    ${t.notes?`<div class="trip-info-item" style="flex:1;min-width:160px"><div class="trip-info-label">${tr('lbl_notes')}</div><div class="trip-info-val" style="font-weight:400;color:var(--ink3);font-size:12px">${h(t.notes)}</div></div>`:''}`;
-}
-
-async function loadDays(){
-  const cont=document.getElementById('days-container');
-  cont.innerHTML=`<div style="display:flex;justify-content:center;padding:2rem"><div class="spinner"></div></div>`;
-  try{const res=await fetch(`${API}/trips/${currentTrip.id}/days`,{headers:authHeaders()});currentDays=await res.json();renderDays();}
-  catch(e){cont.innerHTML='<div style="color:var(--ink3);padding:1rem">Error loading days</div>';}
+async function loadDays(){const c=document.getElementById('days-wrap');c.innerHTML=`<div style="display:flex;justify-content:center;padding:2rem"><div class="spinner"></div></div>`;
+  try{const r=await fetch(`${API}/trips/${currentTrip.id}/days`,{headers:aH()});currentDays=await r.json();renderDays();}
+  catch(e){document.getElementById('days-wrap').innerHTML='<div style="color:var(--ink3)">Error</div>';}
 }
 
 function renderDays(){
-  const cont=document.getElementById('days-container');cont.innerHTML='';
+  const cont=document.getElementById('days-wrap');cont.innerHTML='';
+  const cIcons={gem:'gem',cost:'coin',warn:'clock',dont:'star',car:'car'};
   currentDays.forEach((day,idx)=>{
-    const reg='reg-'+(day.region||'cities');
-    const regionLabel=tr('reg_'+(day.region||'cities'));
-    const wrap=document.createElement('div');wrap.className='day-wrap';wrap.draggable=true;wrap.dataset.idx=idx;
-    const attrHtml=(day.attractions||[]).map(a=>`
-      <div class="attr-row">
-        <div class="attr-ico" style="opacity:0.8">${icn('map')}</div>
-        <div class="attr-info"><div class="attr-name">${h(a.name)}</div><div class="attr-meta">${h(a.meta||'')}</div></div>
-        <div class="attr-right">
-          <span class="cost-badge ${h(a.cost_type||'free')}">${h(a.cost||'')}</span>
-          ${a.maps_url?`<a class="map-btn" href="${h(a.maps_url)}" target="_blank" rel="noopener">${icn('map')}<span>${tr('open_maps')}</span></a>`:''}
-          <div class="attr-acts">
-            ${actBtn('pencil',tr('edit'),`openEditAttr(${day.id},${a.id})`)}
-            ${actBtn('trash',tr('del'),`deleteAttr(${day.id},${a.id})`,true)}
+    const reg='r-'+(day.region||'cities');
+    const wrap=document.createElement('div');wrap.className='day-row';wrap.draggable=true;wrap.dataset.idx=idx;
+    const attrs=(day.attractions||[]).map(a=>`<div class="attr-row">
+      <div class="attr-ico">${ic('map')}</div>
+      <div class="attr-info"><div class="attr-nm">${h(a.name)}</div><div class="attr-mt">${h(a.meta||'')}</div></div>
+      <div class="attr-r">
+        <span class="cost-b ${a.cost_type==='paid'?'b-paid':'b-free'}">${h(a.cost||'')}</span>
+        ${a.maps_url?`<a class="map-btn" href="${h(a.maps_url)}" target="_blank" rel="noopener">${ic('map')}<span>${tr('open_maps')}</span></a>`:''}
+        <div class="attr-acts">${ab('pencil',tr('edit'),`openEditAttr(${day.id},${a.id})`)}${ab('trash',tr('del'),`deleteAttr(${day.id},${a.id})`,true)}</div>
+      </div></div>`).join('');
+    const calls=(day.callouts||[]).map(c=>`<div class="callout ${h(c.type)}">${ic(cIcons[c.type]||'star')}<span>${h(c.text)}</span><button class="act danger callout-del" onclick="deleteCallout(${day.id},${c.id})">${I.trash}</button></div>`).join('');
+    const notes=(day.notes||[]).length===0?`<div class="empty-notes">${tr('no_notes')}</div>`:(day.notes||[]).map((n,ni)=>`<div class="note-item"><div class="note-txt">${h(n.text)}</div><div class="note-acts">${ab('pencil',tr('edit'),`openEditNote(${day.id},${ni})`)}${ab('trash',tr('del'),`deleteNote(${day.id},${n.id})`,true)}</div></div>`).join('');
+    wrap.innerHTML=`<div class="tl ${reg}"><div class="tl-num">${day.num}</div><div class="tl-ln"></div></div>
+      <div class="day-col"><div class="day-card" id="dc-${day.id}">
+        <div class="day-hd" onclick="toggleCard('dc-${day.id}')">
+          <div class="day-hd-l">
+            <div class="day-title">${h(day.title)}</div><div class="day-sub">${h(day.tagline||'')}</div>
+            <div class="day-tags">${day.drive?`<div class="drive-tag">${ic('car')}<span>${h(day.drive)}</span></div>`:''}<span class="reg-tag ${reg}">${h(tr('r_'+(day.region||'cities')))}</span></div>
+          </div>
+          <div class="day-hd-r">
+            ${ab('up',tr('move_up'),`ev.stopPropagation();moveDay(${idx},-1)`)}${ab('dn',tr('move_dn'),`ev.stopPropagation();moveDay(${idx},1)`)}
+            ${ab('pencil',tr('edit'),`ev.stopPropagation();openEditDay(${day.id})`)}${ab('trash',tr('del'),`ev.stopPropagation();deleteDay(${day.id})`,true)}
+            ${I.chev}
           </div>
         </div>
-      </div>`).join('');
-    const calloutIcons={gem:'gem',cost:'coin',warn:'clock',dont:'star',car:'car'};
-    const calloutHtml=(day.callouts||[]).map(c=>`
-      <div class="callout ${h(c.type||'info')}">${icn(calloutIcons[c.type]||'star')}<span>${h(c.text)}</span>
-        <button class="act danger callout-del" onclick="deleteCallout(${day.id},${c.id})">${IC.trash}</button>
-      </div>`).join('');
-    const notesHtml=(day.notes||[]).length===0
-      ?`<div class="empty-notes">${tr('no_notes')}</div>`
-      :(day.notes||[]).map((n,ni)=>`
-        <div class="note-item">
-          <div class="note-txt">${h(n.text)}</div>
-          <div class="note-acts">
-            ${actBtn('pencil',tr('edit'),`openEditNote(${day.id},${ni})`)}
-            ${actBtn('trash',tr('del'),`deleteNote(${day.id},${n.id})`,true)}
-          </div>
-        </div>`).join('');
-    wrap.innerHTML=`
-      <div class="tl-col ${reg}">
-        <div class="day-num">${day.num}</div><div class="tl-line"></div>
-      </div>
-      <div class="day-content-col">
-        <div class="day-card" id="dcard-${day.id}">
-          <div class="day-head" onclick="toggleDay('dcard-${day.id}')">
-            <div class="day-head-left">
-              <div class="day-title-txt">${h(day.title)}</div>
-              <div class="day-sub-txt">${h(day.tagline||'')}</div>
-              <div class="day-tags">
-                ${day.drive?`<div class="drive-tag">${icn('car')}<span>${h(day.drive)}</span></div>`:''}
-                <span class="region-tag ${reg}">${h(regionLabel)}</span>
-              </div>
-            </div>
-            <div class="day-head-right">
-              ${actBtn('up',tr('move_up'),`event.stopPropagation();moveDay(${idx},-1)`)}
-              ${actBtn('down',tr('move_down'),`event.stopPropagation();moveDay(${idx},1)`)}
-              ${actBtn('pencil',tr('edit'),`event.stopPropagation();openEditDay(${day.id})`)}
-              ${actBtn('trash',tr('del'),`event.stopPropagation();deleteDay(${day.id})`,true)}
-              ${IC.chevron}
-            </div>
-          </div>
-          <div class="day-body">
-            <div class="sec-hdr"><span class="sec-lbl">${tr('sec_attractions')}</span>
-              <button class="btn btn-sm" onclick="openAddAttr(${day.id})">${IC.plus}<span>${tr('add_attr')}</span></button>
-            </div>
-            <div class="attrs-list">${attrHtml}</div>
-            ${calloutHtml?`<div class="callouts">${calloutHtml}</div>`:''}
-            ${day.dont_miss?`<div class="callouts"><div class="callout dont">${icn('star')}<span><strong>${tr('dont_miss')}</strong> ${h(day.dont_miss)}</span></div></div>`:''}
-            <div class="notes-sec">
-              <div class="notes-lbl">${tr('sec_notes')}</div>${notesHtml}
-              <button class="btn btn-sm" style="margin-top:6px" onclick="openAddNote(${day.id})">${IC.plus}<span>${tr('add_note_btn')}</span></button>
-            </div>
-          </div>
+        <div class="day-body">
+          <div class="sec-hdr"><span class="sec-lbl">${tr('sec_attrs')}</span><button class="btn btn-sm" onclick="openAddAttr(${day.id})">${I.plus}<span>${tr('add_attr')}</span></button></div>
+          <div class="attrs-list">${attrs}</div>
+          ${calls?`<div class="callouts">${calls}</div>`:''}
+          ${day.dont_miss?`<div class="callouts"><div class="callout dont">${ic('star')}<span><strong>${tr('dont_miss')}</strong> ${h(day.dont_miss)}</span></div></div>`:''}
+          <div class="notes-sec"><div class="notes-lbl">${tr('sec_notes')}</div>${notes}<button class="btn btn-sm" style="margin-top:6px" onclick="openAddNote(${day.id})">${I.plus}<span>${tr('add_note_btn')}</span></button></div>
         </div>
-      </div>`;
-    wrap.addEventListener('dragstart',e=>{dragSrcIdx=idx;wrap.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
-    wrap.addEventListener('dragend',()=>document.querySelectorAll('.day-wrap').forEach(w=>w.classList.remove('dragging','drag-over')));
+      </div></div>`;
+    wrap.addEventListener('dragstart',e=>{dragSrc=idx;wrap.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    wrap.addEventListener('dragend',()=>document.querySelectorAll('.day-row').forEach(w=>w.classList.remove('dragging','drag-over')));
     wrap.addEventListener('dragover',e=>{e.preventDefault();wrap.classList.add('drag-over');});
     wrap.addEventListener('dragleave',()=>wrap.classList.remove('drag-over'));
-    wrap.addEventListener('drop',e=>{e.preventDefault();wrap.classList.remove('drag-over');
-      if(dragSrcIdx!==null&&dragSrcIdx!==idx){const m=currentDays.splice(dragSrcIdx,1)[0];currentDays.splice(idx,0,m);reorderDays();renderDays();}});
+    wrap.addEventListener('drop',e=>{e.preventDefault();wrap.classList.remove('drag-over');if(dragSrc!==null&&dragSrc!==idx){const m=currentDays.splice(dragSrc,1)[0];currentDays.splice(idx,0,m);reorderDays();renderDays();}});
     cont.appendChild(wrap);
   });
 }
 
-function reopen(id){setTimeout(()=>{const c=document.getElementById('dcard-'+id);if(c)c.classList.add('expanded');},50);}
-function renumberDays(){currentDays.forEach((d,i)=>d.num=i+1);}
-async function moveDay(idx,dir){const to=idx+dir;if(to<0||to>=currentDays.length)return;
-  [currentDays[idx],currentDays[to]]=[currentDays[to],currentDays[idx]];renumberDays();await reorderDays();renderDays();}
-async function reorderDays(){
-  try{await fetch(`${API}/trips/${currentTrip.id}/days/reorder`,{method:'POST',headers:authHeaders(),body:JSON.stringify({ids:currentDays.map(d=>d.id)})});}catch(e){}
-}
+// fix onclick ev references
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.act');if(!btn)return;
+  const fn=btn.getAttribute('onclick');if(fn&&fn.includes('ev.'))btn.setAttribute('onclick',fn.replace(/ev\./g,'event.'));
+});
 
-// Day modal
-function openAddDay(){
-  editDayId=null;document.getElementById('day-modal-title').textContent=tr('modal_add_day');
-  ['d-title','d-tagline','d-drive','d-dont-miss'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('d-region').value='cities';openModal('day-modal');
-}
-function openEditDay(id){
-  const day=currentDays.find(d=>d.id===id);if(!day)return;editDayId=id;
-  document.getElementById('day-modal-title').textContent=tr('modal_edit_day');
-  document.getElementById('d-title').value=day.title;document.getElementById('d-tagline').value=day.tagline||'';
-  document.getElementById('d-region').value=day.region||'cities';document.getElementById('d-drive').value=day.drive||'';
-  document.getElementById('d-dont-miss').value=day.dont_miss||'';openModal('day-modal');
-}
-async function saveDay(){
-  const title=document.getElementById('d-title').value.trim();if(!title)return;
-  const body={num:editDayId?currentDays.find(d=>d.id===editDayId)?.num:(currentDays.length+1),title,
-    tagline:document.getElementById('d-tagline').value.trim(),region:document.getElementById('d-region').value,
-    drive:document.getElementById('d-drive').value.trim(),dont_miss:document.getElementById('d-dont-miss').value.trim(),
-    position:editDayId?currentDays.find(d=>d.id===editDayId)?.position:currentDays.length};
-  try{
-    let res;
-    if(editDayId){
-      res=await fetch(`${API}/trips/${currentTrip.id}/days/${editDayId}`,{method:'PUT',headers:authHeaders(),body:JSON.stringify(body)});
-      if(res.ok){const idx=currentDays.findIndex(d=>d.id===editDayId);currentDays[idx]={...currentDays[idx],...body};}
-    }else{
-      res=await fetch(`${API}/trips/${currentTrip.id}/days`,{method:'POST',headers:authHeaders(),body:JSON.stringify(body)});
-      if(res.ok){const nd=await res.json();nd.attractions=[];nd.notes=[];nd.callouts=[];currentDays.push(nd);}
-    }
-    closeModal('day-modal');renderDays();toast(tr('saved'));if(editDayId)reopen(editDayId);
-  }catch(e){toast('Error');}
-}
-async function deleteDay(id){
-  if(!confirm(tr('del')+'?'))return;
-  try{await fetch(`${API}/trips/${currentTrip.id}/days/${id}`,{method:'DELETE',headers:authHeaders()});
-    currentDays=currentDays.filter(d=>d.id!==id);renumberDays();renderDays();toast(tr('deleted'));}
-  catch(e){toast('Error');}
-}
+function reopen(id){setTimeout(()=>{const c=document.getElementById('dc-'+id);if(c)c.classList.add('expanded');},50);}
+function renumDays(){currentDays.forEach((d,i)=>d.num=i+1);}
+async function moveDay(idx,dir){const to=idx+dir;if(to<0||to>=currentDays.length)return;[currentDays[idx],currentDays[to]]=[currentDays[to],currentDays[idx]];renumDays();await reorderDays();renderDays();}
+async function reorderDays(){try{await fetch(`${API}/trips/${currentTrip.id}/days/reorder`,{method:'POST',headers:aH(),body:JSON.stringify({ids:currentDays.map(d=>d.id)})});}catch(e){}}
 
-// Attr modal
-function openAddAttr(dayId){editAttrId=null;editAttrDayId=dayId;
-  document.getElementById('attr-modal-title').textContent=tr('modal_add_attr');
-  ['a-name','a-meta','a-cost','a-maps'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('a-cost-type').value='free';openModal('attr-modal');
+// day modal
+function openAddDay(){editDayId=null;document.getElementById('day-modal-title').textContent=tr('modal_add_day');['d-title','d-tagline','d-drive','d-dontmiss'].forEach(id=>document.getElementById(id).value='');document.getElementById('d-region').value='cities';openModal('day-modal');}
+function openEditDay(id){const d=currentDays.find(x=>x.id===id);if(!d)return;editDayId=id;document.getElementById('day-modal-title').textContent=tr('modal_edit_day');document.getElementById('d-title').value=d.title;document.getElementById('d-tagline').value=d.tagline||'';document.getElementById('d-region').value=d.region||'cities';document.getElementById('d-drive').value=d.drive||'';document.getElementById('d-dontmiss').value=d.dont_miss||'';openModal('day-modal');}
+async function saveDay(){const title=document.getElementById('d-title').value.trim();if(!title)return;
+  const body={num:editDayId?currentDays.find(d=>d.id===editDayId)?.num:currentDays.length+1,title,tagline:document.getElementById('d-tagline').value.trim(),region:document.getElementById('d-region').value,drive:document.getElementById('d-drive').value.trim(),dont_miss:document.getElementById('d-dontmiss').value.trim(),position:editDayId?currentDays.find(d=>d.id===editDayId)?.position:currentDays.length};
+  try{let r;if(editDayId){r=await fetch(`${API}/trips/${currentTrip.id}/days/${editDayId}`,{method:'PUT',headers:aH(),body:JSON.stringify(body)});if(r.ok){const i=currentDays.findIndex(d=>d.id===editDayId);currentDays[i]={...currentDays[i],...body};}}else{r=await fetch(`${API}/trips/${currentTrip.id}/days`,{method:'POST',headers:aH(),body:JSON.stringify(body)});if(r.ok){const nd=await r.json();nd.attractions=[];nd.notes=[];nd.callouts=[];currentDays.push(nd);}}
+  closeModal('day-modal');renderDays();toast(tr('saved'));if(editDayId)reopen(editDayId);}catch(e){toast('Error');}
 }
-function openEditAttr(dayId,attrId){
-  const day=currentDays.find(d=>d.id===dayId);if(!day)return;
-  const attr=day.attractions.find(a=>a.id===attrId);if(!attr)return;
-  editAttrId=attrId;editAttrDayId=dayId;
-  document.getElementById('attr-modal-title').textContent=tr('modal_edit_attr');
-  document.getElementById('a-name').value=attr.name;document.getElementById('a-meta').value=attr.meta||'';
-  document.getElementById('a-cost').value=attr.cost||'';document.getElementById('a-cost-type').value=attr.cost_type||'free';
-  document.getElementById('a-maps').value=attr.maps_url||'';openModal('attr-modal');
-}
-async function saveAttr(){
-  const name=document.getElementById('a-name').value.trim();if(!name)return;
-  const day=currentDays.find(d=>d.id===editAttrDayId);
-  const body={name,meta:document.getElementById('a-meta').value.trim(),cost:document.getElementById('a-cost').value.trim(),
-    cost_type:document.getElementById('a-cost-type').value,maps_url:document.getElementById('a-maps').value.trim(),icon:'map'};
-  try{
-    let res;
-    if(editAttrId){
-      res=await fetch(`${API}/trips/${currentTrip.id}/days/${editAttrDayId}/attractions/${editAttrId}`,{method:'PUT',headers:authHeaders(),body:JSON.stringify({...body,position:day.attractions.find(a=>a.id===editAttrId)?.position||0})});
-      if(res.ok){const i=day.attractions.findIndex(a=>a.id===editAttrId);day.attractions[i]={...day.attractions[i],...body};}
-    }else{
-      res=await fetch(`${API}/trips/${currentTrip.id}/days/${editAttrDayId}/attractions`,{method:'POST',headers:authHeaders(),body:JSON.stringify(body)});
-      if(res.ok){const na=await res.json();day.attractions.push(na);}
-    }
-    closeModal('attr-modal');renderDays();toast(tr('saved'));reopen(editAttrDayId);
-  }catch(e){toast('Error');}
-}
-async function deleteAttr(dayId,attrId){
-  const day=currentDays.find(d=>d.id===dayId);if(!day)return;
-  try{await fetch(`${API}/trips/${currentTrip.id}/days/${dayId}/attractions/${attrId}`,{method:'DELETE',headers:authHeaders()});
-    day.attractions=day.attractions.filter(a=>a.id!==attrId);renderDays();toast(tr('deleted'));reopen(dayId);}
-  catch(e){toast('Error');}
-}
+async function deleteDay(id){if(!confirm(tr('del')+'?'))return;try{await fetch(`${API}/trips/${currentTrip.id}/days/${id}`,{method:'DELETE',headers:aH()});currentDays=currentDays.filter(d=>d.id!==id);renumDays();renderDays();toast(tr('deleted'));}catch(e){toast('Error');}}
 
-// Note modal
-function openAddNote(dayId){activeNoteDayId=dayId;editNoteIdx=null;document.getElementById('n-text').value='';openModal('note-modal');}
-function openEditNote(dayId,idx){
-  activeNoteDayId=dayId;editNoteIdx=idx;
-  document.getElementById('n-text').value=currentDays.find(d=>d.id===dayId).notes[idx].text;
-  openModal('note-modal');
+// attr modal
+function openAddAttr(did){editAttrId=null;editAttrDayId=did;document.getElementById('attr-modal-title').textContent=tr('modal_add_attr');['a-name','a-meta','a-cost','a-maps'].forEach(id=>document.getElementById(id).value='');document.getElementById('a-cost-type').value='free';openModal('attr-modal');}
+function openEditAttr(did,aid){const d=currentDays.find(x=>x.id===did);const a=d?.attractions.find(x=>x.id===aid);if(!a)return;editAttrId=aid;editAttrDayId=did;document.getElementById('attr-modal-title').textContent=tr('modal_edit_attr');document.getElementById('a-name').value=a.name;document.getElementById('a-meta').value=a.meta||'';document.getElementById('a-cost').value=a.cost||'';document.getElementById('a-cost-type').value=a.cost_type||'free';document.getElementById('a-maps').value=a.maps_url||'';openModal('attr-modal');}
+async function saveAttr(){const name=document.getElementById('a-name').value.trim();if(!name)return;const d=currentDays.find(x=>x.id===editAttrDayId);const body={name,meta:document.getElementById('a-meta').value.trim(),cost:document.getElementById('a-cost').value.trim(),cost_type:document.getElementById('a-cost-type').value,maps_url:document.getElementById('a-maps').value.trim(),icon:'map'};
+  try{let r;if(editAttrId){r=await fetch(`${API}/trips/${currentTrip.id}/days/${editAttrDayId}/attractions/${editAttrId}`,{method:'PUT',headers:aH(),body:JSON.stringify({...body,position:d.attractions.find(a=>a.id===editAttrId)?.position||0})});if(r.ok){const i=d.attractions.findIndex(a=>a.id===editAttrId);d.attractions[i]={...d.attractions[i],...body};}}else{r=await fetch(`${API}/trips/${currentTrip.id}/days/${editAttrDayId}/attractions`,{method:'POST',headers:aH(),body:JSON.stringify(body)});if(r.ok){const na=await r.json();d.attractions.push(na);}}
+  closeModal('attr-modal');renderDays();toast(tr('saved'));reopen(editAttrDayId);}catch(e){toast('Error');}
 }
-async function saveNote(){
-  const text=document.getElementById('n-text').value.trim();if(!text)return;
-  const day=currentDays.find(d=>d.id===activeNoteDayId);
-  try{
-    if(editNoteIdx!==null){
-      const note=day.notes[editNoteIdx];
-      await fetch(`${API}/trips/${currentTrip.id}/days/${activeNoteDayId}/notes/${note.id}`,{method:'PUT',headers:authHeaders(),body:JSON.stringify({text,position:note.position||0})});
-      day.notes[editNoteIdx].text=text;
-    }else{
-      const res=await fetch(`${API}/trips/${currentTrip.id}/days/${activeNoteDayId}/notes`,{method:'POST',headers:authHeaders(),body:JSON.stringify({text})});
-      if(res.ok){const nn=await res.json();day.notes.push(nn);}
-    }
-    closeModal('note-modal');renderDays();toast(tr('saved'));reopen(activeNoteDayId);
-  }catch(e){toast('Error');}
-}
-async function deleteNote(dayId,noteId){
-  const day=currentDays.find(d=>d.id===dayId);if(!day)return;
-  try{await fetch(`${API}/trips/${currentTrip.id}/days/${dayId}/notes/${noteId}`,{method:'DELETE',headers:authHeaders()});
-    day.notes=day.notes.filter(n=>n.id!==noteId);renderDays();toast(tr('deleted'));reopen(dayId);}
-  catch(e){toast('Error');}
-}
-async function deleteCallout(dayId,calloutId){
-  const day=currentDays.find(d=>d.id===dayId);if(!day)return;
-  try{await fetch(`${API}/trips/${currentTrip.id}/days/${dayId}/callouts/${calloutId}`,{method:'DELETE',headers:authHeaders()});
-    day.callouts=day.callouts.filter(c=>c.id!==calloutId);renderDays();toast(tr('deleted'));reopen(dayId);}
-  catch(e){toast('Error');}
-}
+async function deleteAttr(did,aid){const d=currentDays.find(x=>x.id===did);try{await fetch(`${API}/trips/${currentTrip.id}/days/${did}/attractions/${aid}`,{method:'DELETE',headers:aH()});d.attractions=d.attractions.filter(a=>a.id!==aid);renderDays();toast(tr('deleted'));reopen(did);}catch(e){toast('Error');}}
 
-// ── MODAL UTILS ───────────────────────────────────────────
+// note modal
+function openAddNote(did){activeNoteDay=did;editNoteIdx=null;document.getElementById('n-text').value='';openModal('note-modal');}
+function openEditNote(did,idx){activeNoteDay=did;editNoteIdx=idx;document.getElementById('n-text').value=currentDays.find(d=>d.id===did).notes[idx].text;openModal('note-modal');}
+async function saveNote(){const text=document.getElementById('n-text').value.trim();if(!text)return;const d=currentDays.find(x=>x.id===activeNoteDay);
+  try{if(editNoteIdx!==null){const n=d.notes[editNoteIdx];await fetch(`${API}/trips/${currentTrip.id}/days/${activeNoteDay}/notes/${n.id}`,{method:'PUT',headers:aH(),body:JSON.stringify({text,position:n.position||0})});d.notes[editNoteIdx].text=text;}else{const r=await fetch(`${API}/trips/${currentTrip.id}/days/${activeNoteDay}/notes`,{method:'POST',headers:aH(),body:JSON.stringify({text})});if(r.ok){const nn=await r.json();d.notes.push(nn);}}
+  closeModal('note-modal');renderDays();toast(tr('saved'));reopen(activeNoteDay);}catch(e){toast('Error');}
+}
+async function deleteNote(did,nid){const d=currentDays.find(x=>x.id===did);try{await fetch(`${API}/trips/${currentTrip.id}/days/${did}/notes/${nid}`,{method:'DELETE',headers:aH()});d.notes=d.notes.filter(n=>n.id!==nid);renderDays();toast(tr('deleted'));reopen(did);}catch(e){toast('Error');}}
+async function deleteCallout(did,cid){const d=currentDays.find(x=>x.id===did);try{await fetch(`${API}/trips/${currentTrip.id}/days/${did}/callouts/${cid}`,{method:'DELETE',headers:aH()});d.callouts=d.callouts.filter(c=>c.id!==cid);renderDays();toast(tr('deleted'));reopen(did);}catch(e){toast('Error');}}
+
+// ── MODALS ───────────────────────────────────────────────
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-// ── TOAST ─────────────────────────────────────────────────
-let _tt;
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2400);}
+// ── TOAST ────────────────────────────────────────────────
+let _tt;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2200);}
 
-// ── INIT ──────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────
 applyTheme();applyLang();
 if(token&&currentUser){lang=currentUser.lang||lang;theme=currentUser.theme||theme;applyTheme();applyLang();showDash();}
 else{goLanding();}
