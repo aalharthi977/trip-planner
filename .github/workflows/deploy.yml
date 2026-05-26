@@ -1,0 +1,122 @@
+name: Deploy Trip Planner
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to home-lab
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect what changed
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          FRONTEND=false
+          BACKEND=false
+          COMPOSE=false
+
+          echo "$CHANGED" | grep -q "^web/" && FRONTEND=true
+          echo "$CHANGED" | grep -qE "^api/(main|requirements|Dockerfile)" && BACKEND=true
+          echo "$CHANGED" | grep -q "^docker-compose.yml" && COMPOSE=true
+
+          echo "frontend=$FRONTEND" >> $GITHUB_OUTPUT
+          echo "backend=$BACKEND"  >> $GITHUB_OUTPUT
+          echo "compose=$COMPOSE"  >> $GITHUB_OUTPUT
+
+          echo "--- Detection result ---"
+          echo "frontend=$FRONTEND backend=$BACKEND compose=$COMPOSE"
+
+      - name: Setup SSH via Cloudflare Tunnel
+        run: |
+          # Install cloudflared
+          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
+            | sudo gpg --dearmor -o /usr/share/keyrings/cloudflare-main.gpg
+          echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] \
+            https://pkg.cloudflare.com/cloudflared focal main" \
+            | sudo tee /etc/apt/sources.list.d/cloudflared.list
+          sudo apt-get update -qq && sudo apt-get install -y -qq cloudflared
+
+          # Write SSH key
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Configure SSH to route through Cloudflare Tunnel
+          cat >> ~/.ssh/config << EOF
+          Host ssh.aalharthi.net
+            HostName ssh.aalharthi.net
+            User admin
+            IdentityFile ~/.ssh/deploy_key
+            StrictHostKeyChecking no
+            ProxyCommand cloudflared access ssh --hostname %h
+          EOF
+
+      - name: Deploy to server
+        env:
+          FRONTEND: ${{ steps.changes.outputs.frontend }}
+          BACKEND:  ${{ steps.changes.outputs.backend }}
+          COMPOSE:  ${{ steps.changes.outputs.compose }}
+        run: |
+          ssh ssh.aalharthi.net "bash -s" << ENDSSH
+            set -e
+            cd ~/docker/trip-planner
+
+            echo "==> Pulling latest code..."
+            git pull origin main
+
+            FRONTEND=${FRONTEND}
+            BACKEND=${BACKEND}
+            COMPOSE=${COMPOSE}
+
+            if [ "\$COMPOSE" = "true" ]; then
+              echo "==> docker-compose.yml changed — full rebuild..."
+              docker compose down
+              docker compose up -d --build
+              echo "✓ Full rebuild complete"
+
+            elif [ "\$BACKEND" = "true" ] && [ "\$FRONTEND" = "true" ]; then
+              echo "==> Both changed — rebuild API + refresh frontend..."
+              docker compose up -d --build trip-planner-api
+              cp web/index.html /usr/share/nginx/html/index.html 2>/dev/null || true
+              echo "✓ API rebuilt, frontend refreshed"
+
+            elif [ "\$BACKEND" = "true" ]; then
+              echo "==> API changed — rebuilding trip-planner-api..."
+              docker compose up -d --build trip-planner-api
+              echo "✓ API container rebuilt"
+
+            elif [ "\$FRONTEND" = "true" ]; then
+              echo "==> Frontend only — copying index.html (no rebuild)..."
+              docker cp web/index.html trip-planner-web:/usr/share/nginx/html/index.html
+              echo "✓ Frontend updated instantly"
+
+            else
+              echo "==> No relevant files changed — skipping deploy"
+            fi
+
+            echo "==> Container status:"
+            docker ps --format 'table {{.Names}}\t{{.Status}}' | grep trip
+          ENDSSH
+
+      - name: Verify deployment
+        run: |
+          sleep 3
+          HTTP=$(curl -o /dev/null -s -w "%{http_code}" \
+            --max-time 10 https://trip.aalharthi.net/api/health)
+          if [ "$HTTP" = "200" ]; then
+            echo "✓ Deployment verified — /api/health returned 200"
+          else
+            echo "✗ Health check failed — got HTTP $HTTP"
+            exit 1
+          fi
