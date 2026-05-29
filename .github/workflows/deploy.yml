@@ -73,6 +73,7 @@ jobs:
             set -e
             cd ~/docker/trip-planner
             echo "==> Pulling latest code..."
+            git reset --hard
             git pull origin main
           '
 
