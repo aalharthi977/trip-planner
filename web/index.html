@@ -31,7 +31,8 @@
   --purple:#8060C4;--purple-dim:rgba(128,96,196,0.13);
   --red:#C44848;--red-dim:rgba(196,72,72,0.13);
 }
-body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic','Fraunces',sans-serif;font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;transition:background .2s,color .2s}
+html{overflow-x:hidden;max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic','Fraunces',sans-serif;font-size:14px;line-height:1.65;min-height:100vh;overflow-x:hidden;max-width:100%;transition:background .2s,color .2s}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 .hidden{display:none!important}
 .screen{display:none;min-height:100vh}
@@ -342,6 +343,8 @@ textarea{resize:vertical;min-height:68px}
 @media(max-width:640px){
   .land-inner,.ed-main,.pub-inner,.pub-main,.dash-body{padding-left:1rem;padding-right:1rem}
   .nav,.ed-hdr{padding:0}  .nav-inner{padding:0 1rem}
+  .screen{overflow-x:hidden}
+  .cta-strip{padding-left:1.25rem;padding-right:1.25rem}
   .ed-grid,.trips-editorial{grid-template-columns:1fr}
   .ed-card:nth-child(odd){padding-inline-end:0;border-inline-end:none}
   .ed-card:nth-child(even){padding-inline-start:0}
