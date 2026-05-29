@@ -88,15 +88,15 @@ jobs:
               docker compose down
               docker compose up -d --build
             elif [ \"\$BACKEND\" = \"true\" ] && [ \"\$FRONTEND\" = \"true\" ]; then
-              echo \"==> Rebuild API + refresh frontend...\"
+              echo \"==> Rebuild API + reload nginx...\"
               docker compose up -d --build trip-planner-api
-              echo 'Frontend already updated via git pull'
+              docker exec trip-planner-web nginx -s reload
             elif [ \"\$BACKEND\" = \"true\" ]; then
               echo \"==> Rebuild API...\"
               docker compose up -d --build trip-planner-api
             elif [ \"\$FRONTEND\" = \"true\" ]; then
-              echo \"==> Frontend only...\"
-              echo 'Frontend already updated via git pull'
+              echo \"==> Frontend only -- reloading nginx...\"
+              docker exec trip-planner-web nginx -s reload
             else
               echo \"==> No relevant changes, skipping\"
             fi
