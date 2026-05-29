@@ -89,13 +89,13 @@ jobs:
             elif [ \"\$BACKEND\" = \"true\" ] && [ \"\$FRONTEND\" = \"true\" ]; then
               echo \"==> Rebuild API + refresh frontend...\"
               docker compose up -d --build trip-planner-api
-              cp web/index.html ~/docker/trip-planner/web/index.html
+              echo 'Frontend already updated via git pull'
             elif [ \"\$BACKEND\" = \"true\" ]; then
               echo \"==> Rebuild API...\"
               docker compose up -d --build trip-planner-api
             elif [ \"\$FRONTEND\" = \"true\" ]; then
               echo \"==> Frontend only...\"
-              cp web/index.html ~/docker/trip-planner/web/index.html
+              echo 'Frontend already updated via git pull'
             else
               echo \"==> No relevant changes, skipping\"
             fi
