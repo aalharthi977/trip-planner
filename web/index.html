@@ -560,6 +560,117 @@ textarea{resize:vertical;min-height:68px}
 </div>
 
 <!-- ══ MODALS ══ -->
+<style>
+/* ── WIZARD ─────────────────────────────────────── */
+.wiz-modal{max-width:560px}
+.wiz-step{display:none;flex-direction:column;gap:20px}
+.wiz-step.active{display:flex}
+.wiz-prog{display:flex;gap:6px;padding:0 20px 0}
+.wiz-prog-dot{height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background .3s}
+.wiz-prog-dot.done{background:var(--green)}
+.wiz-big-label{font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:4px}
+.wiz-big-input{width:100%;padding:14px 16px;font-size:1.1rem;border:2px solid var(--border2);border-radius:10px;background:var(--bg3);color:var(--ink);transition:border-color .2s;font-family:inherit;text-align:right}
+.wiz-big-input:focus{outline:none;border-color:var(--green)}
+.wiz-date-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wiz-date-row .wiz-big-input{font-size:.95rem;padding:12px 14px}
+.wiz-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.wiz-chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--ink2);cursor:pointer;font-size:13px;transition:all .15s;user-select:none;font-family:inherit}
+.wiz-chip:hover{border-color:var(--green);color:var(--green)}
+.wiz-chip.sel{background:var(--green-dim);border-color:var(--green);color:var(--green);font-weight:600}
+.wiz-method-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wiz-card{border:2px solid var(--border2);border-radius:12px;padding:20px 16px;cursor:pointer;transition:all .2s;text-align:center;background:var(--bg3);position:relative}
+.wiz-card:not(.disabled):hover{border-color:var(--green);background:var(--green-dim)}
+.wiz-card.disabled{opacity:.5;cursor:not-allowed}
+.wiz-card-icon{font-size:2rem;margin-bottom:8px}
+.wiz-card-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.wiz-card-desc{font-size:12px;color:var(--ink3);line-height:1.5}
+.wiz-soon{position:absolute;top:10px;left:10px;background:var(--gold-dim,#f5e6c8);color:#a07830;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:.04em}
+.wiz-days-badge{display:inline-block;background:var(--green-dim);color:var(--green);font-size:12px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:4px}
+</style>
+<div class="overlay" id="wizard-modal">
+  <div class="modal wiz-modal">
+    <div class="modal-hdr">
+      <div class="modal-title" id="wiz-title">رحلة جديدة ✈️</div>
+      <button class="act" onclick="closeModal('wizard-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body" style="gap:18px">
+      <!-- Progress dots -->
+      <div class="wiz-prog">
+        <div class="wiz-prog-dot done" id="wdot-1"></div>
+        <div class="wiz-prog-dot" id="wdot-2"></div>
+        <div class="wiz-prog-dot" id="wdot-3"></div>
+      </div>
+
+      <!-- Step 1: Destination + Dates -->
+      <div class="wiz-step active" id="wiz-s1">
+        <div>
+          <div class="wiz-big-label">وين تروح؟</div>
+          <input class="wiz-big-input" id="wiz-dest" type="text" placeholder="مثلاً: تايلند، اليابان، باريس..." autocomplete="off">
+        </div>
+        <div>
+          <div class="wiz-big-label">متى؟</div>
+          <div class="wiz-date-row">
+            <div>
+              <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">من</div>
+              <input class="wiz-big-input" id="wiz-start" type="date">
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">إلى</div>
+              <input class="wiz-big-input" id="wiz-end" type="date">
+            </div>
+          </div>
+          <div id="wiz-days-out" style="margin-top:8px;text-align:left"></div>
+        </div>
+      </div>
+
+      <!-- Step 2: Vibes -->
+      <div class="wiz-step" id="wiz-s2">
+        <div>
+          <div class="wiz-big-label">وش نوع الرحلة؟</div>
+          <div style="font-size:12px;color:var(--ink3);margin-bottom:12px">اختر كل ما ينطبق</div>
+          <div class="wiz-chips" id="wiz-chips">
+            <div class="wiz-chip" data-v="food">🍽 مطاعم</div>
+            <div class="wiz-chip" data-v="culture">🏛 ثقافة</div>
+            <div class="wiz-chip" data-v="beach">🏖 شواطئ</div>
+            <div class="wiz-chip" data-v="nature">🌿 طبيعة</div>
+            <div class="wiz-chip" data-v="shopping">🛍 تسوق</div>
+            <div class="wiz-chip" data-v="heritage">🕌 تراث</div>
+            <div class="wiz-chip" data-v="entertainment">🎉 ترفيه</div>
+            <div class="wiz-chip" data-v="adventure">🏃 مغامرة</div>
+            <div class="wiz-chip" data-v="family">👨‍👩‍👧 عائلي</div>
+            <div class="wiz-chip" data-v="romantic">💑 رومانسي</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Method -->
+      <div class="wiz-step" id="wiz-s3">
+        <div>
+          <div class="wiz-big-label">كيف تبدأ؟</div>
+          <div style="font-size:12px;color:var(--ink3);margin-bottom:12px">اختر طريقة التخطيط</div>
+          <div class="wiz-method-row">
+            <div class="wiz-card disabled" title="قريباً">
+              <div class="wiz-soon">قريباً</div>
+              <div class="wiz-card-icon">✨</div>
+              <div class="wiz-card-title">ذكاء اصطناعي</div>
+              <div class="wiz-card-desc">أخبرنا عن رحلتك وسنرتب لك برنامجاً كاملاً</div>
+            </div>
+            <div class="wiz-card" onclick="wizGoManual()">
+              <div class="wiz-card-icon">📝</div>
+              <div class="wiz-card-title">يدوي</div>
+              <div class="wiz-card-desc">ابدأ بلوحة فارغة وأضف أيامك بنفسك</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-foot" id="wiz-foot">
+      <button class="btn" id="wiz-back" onclick="wizBack()" style="display:none" data-k="back">رجوع</button>
+      <button class="btn btn-primary" id="wiz-next" onclick="wizNext()">التالي ←</button>
+    </div>
+  </div>
+</div>
 <div class="overlay" id="trip-modal">
   <div class="modal">
     <div class="modal-hdr"><div class="modal-title" id="trip-modal-title">رحلة جديدة</div><button class="act" onclick="closeModal('trip-modal')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
@@ -908,11 +1019,78 @@ function renderGrid(){
     </div>`;
   }).join('');
 }
-function openNewTrip(){editingTripId=null;document.getElementById('trip-modal-title').textContent=tr('modal_new_trip');
-  ['t-title','t-dest','t-notes'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('t-start').value='';document.getElementById('t-end').value='';document.getElementById('t-budget').value='';
-  document.getElementById('t-currency').value='EUR';document.getElementById('t-color').value='blue';document.getElementById('t-status').value='planning';document.getElementById('t-public').checked=false;
+// ── WIZARD ───────────────────────────────────────────────
+let wizStep=1;
+function openNewTrip(){
+  wizStep=1;
+  document.getElementById('wiz-dest').value='';
+  document.getElementById('wiz-start').value='';
+  document.getElementById('wiz-end').value='';
+  document.getElementById('wiz-days-out').innerHTML='';
+  document.querySelectorAll('.wiz-chip').forEach(c=>c.classList.remove('sel'));
+  wizUpdateUI();
+  openModal('wizard-modal');
+}
+function wizUpdateUI(){
+  for(let i=1;i<=3;i++){
+    document.getElementById('wiz-s'+i).classList.toggle('active',i===wizStep);
+    document.getElementById('wdot-'+i).classList.toggle('done',i<=wizStep);
+  }
+  document.getElementById('wiz-back').style.display=wizStep>1?'':'none';
+  const nxt=document.getElementById('wiz-next');
+  if(wizStep===3){nxt.style.display='none';}
+  else{nxt.style.display='';nxt.textContent=wizStep===2?'التالي ←':'التالي ←';}
+  const titles=['رحلة جديدة ✈️','وش نوع الرحلة؟','اختر طريقتك'];
+  document.getElementById('wiz-title').textContent=titles[wizStep-1];
+}
+function wizNext(){
+  if(wizStep===1){
+    const dest=document.getElementById('wiz-dest').value.trim();
+    if(!dest){document.getElementById('wiz-dest').focus();toast(lang==='ar'?'أدخل الوجهة':'Enter destination');return;}
+  }
+  if(wizStep<3){wizStep++;wizUpdateUI();}
+}
+function wizBack(){if(wizStep>1){wizStep--;wizUpdateUI();}}
+function wizGoManual(){
+  const dest=document.getElementById('wiz-dest').value.trim();
+  const start=document.getElementById('wiz-start').value;
+  const end=document.getElementById('wiz-end').value;
+  const vibes=Array.from(document.querySelectorAll('.wiz-chip.sel')).map(c=>c.dataset.v);
+  closeModal('wizard-modal');
+  // Pre-fill the trip modal with wizard data
+  editingTripId=null;
+  document.getElementById('trip-modal-title').textContent=tr('modal_new_trip');
+  document.getElementById('t-title').value=dest;
+  document.getElementById('t-dest').value=dest;
+  document.getElementById('t-start').value=start;
+  document.getElementById('t-end').value=end;
+  document.getElementById('t-budget').value='';
+  document.getElementById('t-currency').value='SAR';
+  document.getElementById('t-color').value='green';
+  document.getElementById('t-status').value='planning';
+  document.getElementById('t-notes').value=vibes.length?'اهتمامات: '+vibes.join('، '):'';
+  document.getElementById('t-public').checked=false;
   openModal('trip-modal');
+}
+// Chip toggle
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.wiz-chip').forEach(c=>{
+    c.addEventListener('click',()=>c.classList.toggle('sel'));
+  });
+  // Live days counter
+  ['wiz-start','wiz-end'].forEach(id=>{
+    document.getElementById(id).addEventListener('change',wizCalcDays);
+  });
+});
+function wizCalcDays(){
+  const s=document.getElementById('wiz-start').value;
+  const e=document.getElementById('wiz-end').value;
+  const out=document.getElementById('wiz-days-out');
+  if(s&&e){
+    const days=Math.round((new Date(e)-new Date(s))/(1000*60*60*24))+1;
+    if(days>0)out.innerHTML=`<span class="wiz-days-badge">${days} ${lang==='ar'?'أيام':'days'}</span>`;
+    else out.innerHTML='';
+  }else{out.innerHTML='';}
 }
 function openEditTripD(id){const t=trips.find(x=>x.id===id);if(!t)return;editingTripId=id;
   document.getElementById('trip-modal-title').textContent=tr('modal_edit_trip');
