@@ -595,10 +595,10 @@ textarea{resize:vertical;min-height:68px}
     </div>
     <div class="modal-body" style="gap:18px">
       <!-- Progress dots -->
-      <div class="wiz-prog">
-        <div class="wiz-prog-dot" id="wdot-3"></div>
-        <div class="wiz-prog-dot" id="wdot-2"></div>
+      <div class="wiz-prog" style="direction:ltr">
         <div class="wiz-prog-dot done" id="wdot-1"></div>
+        <div class="wiz-prog-dot" id="wdot-2"></div>
+        <div class="wiz-prog-dot" id="wdot-3"></div>
       </div>
 
       <!-- Step 1: Destination + Dates -->
@@ -1034,8 +1034,7 @@ function openNewTrip(){
 function wizUpdateUI(){
   for(let i=1;i<=3;i++){
     document.getElementById('wiz-s'+i).classList.toggle('active',i===wizStep);
-    // dot 1 is rightmost (step 1), dot 3 is leftmost — fill right to left
-    document.getElementById('wdot-'+i).classList.toggle('done',i>=wizStep);
+    document.getElementById('wdot-'+i).classList.toggle('done',i<=wizStep);
   }
   document.getElementById('wiz-back').style.display=wizStep>1?'':'none';
   const nxt=document.getElementById('wiz-next');
